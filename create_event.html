@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Event</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Create Event</h2>
+      <form id="eventCreationForm">
+        <div class="form-group">
+          <label for="eventName">Event Name:</label>
+          <input type="text" id="eventName" name="eventName" required />
+        </div>
+        <div class="form-group">
+          <label for="eventCategory">Event Category:</label>
+          <select id="eventCategory" name="eventCategory" required>
+            <option value="">Select Category</option>
+            <option value="social">Social</option>
+            <option value="fundraising">Fundraising</option>
+            <option value="techTalk">Tech Talk</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">Event Description:</label>
+          <textarea
+            id="eventDescription"
+            name="eventDescription"
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Create Event</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
