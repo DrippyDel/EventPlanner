@@ -4,6 +4,7 @@
     $lastName = $inData["lastName"];
     $Login = $inData["Login"];
     $Password = $inData["Password"];
+    $Email = $inData["Email"];
 
     // Create database connection
     $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
@@ -15,14 +16,14 @@
     }
     else
     {
-        $stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password) VALUES(?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Users (Username, Password, Email, FirstName, LastName) VALUES (?, ?, ?, ?, ?)");
         
         // Check if the statement was prepared successfully
         if ($stmt === false) {
             returnWithError("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("ssss", $firstName, $lastName, $Login, $Password);
+        $stmt->bind_param("sssss", $Login, $Password, $Email, $firstName, $lastName);
         
         // Execute the prepared statement
         if ($stmt->execute())
@@ -40,7 +41,17 @@
 
     function getRequestInfo()
     {
-        return json_decode(file_get_contents('php://input'), true);
+        $json = file_get_contents('php://input');
+        if ($json === false) {
+            returnWithError("Failed to retrieve JSON data from request.");
+        }
+
+        $data = json_decode($json, true);
+        if ($data === null) {
+            returnWithError("Failed to parse JSON data.");
+        }
+
+        return $data;
     }
 
     function sendResultInfoAsJson( $obj )
