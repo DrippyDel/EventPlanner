@@ -3,8 +3,8 @@
 	$inData = getRequestInfo();
 	
 	$id = 0;
-	$firstName = "";
-	$lastName = "";
+	$FirstName = "";
+	$LastName = "";
 
 	$conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB"); 	
 	if( $conn->connect_error )
@@ -13,14 +13,14 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE Username=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
 		}
 		else
 		{
@@ -44,13 +44,13 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"FirstName":"","LastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"id":' . $id . ',"FirstName":"' . $FirstName . '","LastName":"' . $LastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
