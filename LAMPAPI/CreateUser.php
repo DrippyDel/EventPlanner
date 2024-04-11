@@ -1,8 +1,8 @@
 <?php
     $inData = getRequestInfo();
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $Login = $inData["Login"];
+    $FirstName = $inData["FirstName"];
+    $LastName = $inData["LastName"];
+    $Username = $inData["Username"];
     $Password = $inData["Password"];
     $Email = $inData["Email"];
 
@@ -23,7 +23,7 @@
             returnWithError("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("sssss", $Login, $Password, $Email, $firstName, $lastName);
+        $stmt->bind_param("sssss", $Username, $Password, $Email, $FirstName, $LastName);
         
         // Execute the prepared statement
         if ($stmt->execute())
