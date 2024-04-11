@@ -6,6 +6,10 @@ body {
   background-color: #f4f4f4;
 }
 
+.valid {
+  color: green;
+}
+
 .container {
   max-width: 600px;
   margin: 20px auto;
@@ -13,6 +17,29 @@ body {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Position the container */
+}
+
+#addButton {
+  display: block;
+  position: absolute; /* Position the button absolutely */
+  top: 10px; /* Adjust the top position */
+  right: 10px; /* Adjust the right position */
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+#addButton:hover {
+  background-color: #fffb80c7;
+}
+
+#addButton:active {
+  background-color: #fff716f0;
 }
 
 h2 {
@@ -63,4 +90,98 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.search-bar {
+  flex-grow: 1; /* Allow the search bar to grow and occupy available space */
+  max-width: 600px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin-left: 200px;
+  /* width: 100%; */
+}
+
+.search-bar input[type="text"] {
+  width: 100%; /*Make the input fill the available width */
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* .search-bar button */
+
+.createRSOButton {
+  margin-left: 70px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.createRSOButton:hover {
+  background-color: #0056b3;
+}
+
+#logoutButton {
+  margin-left: 200px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+#logoutButton:hover {
+  background-color: #e04000;
 }

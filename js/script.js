@@ -1,116 +1,102 @@
-// Function to validate email format
-function validateEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-}
+// // Function to handle user login form submission
+// function handleLogin(event) {
+//   event.preventDefault(); // Prevent form submission
 
-// Function to toggle between registration and login forms using flip animation
-function toggleForm() {
-  const container = document.getElementById("container");
-  container.classList.toggle("flip");
-}
+//   // Get form input values
+//   const email = document.getElementById("loginEmail").value;
+//   const password = document.getElementById("loginPassword").value;
 
-// Function to handle user registration form submission
-function handleRegistration(event) {
-  event.preventDefault(); // Prevent form submission
+//   // Validate form inputs
+//   if (!validateEmail(email)) {
+//     alert("Please enter a valid email address");
+//     return;
+//   }
 
-  // Get form input values
-  const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+//   if (password.trim() === "") {
+//     alert("Please enter a password");
+//     return;
+//   }
 
-  // Validate form inputs
-  if (username.trim() === "") {
-    alert("Please enter a username");
-    return;
+//   // Prepare data for POST request
+//   const formData = {
+//     email: email,
+//     password: password,
+//   };
+
+//   // Send POST request to API for user login
+//   fetch("http://localhost/api.php?action=login", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(formData),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       // Display success message or error message from API response
+//       alert(data.message);
+//       // Reset form fields if login is successful
+//       if (data.message === "Login successful") {
+//         // Redirect user to event_listing.html after successful login
+//         window.location.href = "event_listing.html";
+//         // Optionally, you can also reset the form fields here
+//         document.getElementById("loginForm").reset();
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error logging in:", error);
+//       alert("An error occurred while logging in. Please try again later.");
+//     });
+// }
+
+// Get the modal
+var modal = document.getElementById("createRSOModal");
+
+// Get the button that opens the modal
+var createRSOButton = document.querySelector(".createRSOButton");
+
+// Get the <span> element that closes the modal
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+createRSOButton.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function () {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
   }
+};
 
-  if (!validateEmail(email)) {
-    alert("Please enter a valid email address");
-    return;
-  }
+// Form submission handling
+document
+  .getElementById("createRSOForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var rsoName = document.getElementById("rsoName").value;
+    var description = document.getElementById("description").value;
 
-  if (password.trim() === "") {
-    alert("Please enter a password");
-    return;
-  }
+    // You can perform validation here before sending the data to the backend
 
-  // Prepare data for POST request
-  const formData = {
-    username: username,
-    email: email,
-    password: password,
-  };
+    // Assuming you have a function to send data to the backend
+    sendDataToBackend(rsoName, description);
 
-  // Send POST request to API for user registration
-  fetch("http://localhost/api.php?action=register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Display success message or error message from API response
-      alert(data.message);
-      // Reset form fields if registration is successful
-      if (data.message === "User registered successfully") {
-        document.getElementById("registrationForm").reset();
-      }
-    })
-    .catch((error) => {
-      console.error("Error registering user:", error);
-      alert("An error occurred while registering. Please try again later.");
-    });
-}
+    // Close the modal after form submission
+    modal.style.display = "none";
+  });
 
-// Function to handle user login form submission
-function handleLogin(event) {
-  event.preventDefault(); // Prevent form submission
-
-  // Get form input values
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  // Validate form inputs
-  if (!validateEmail(email)) {
-    alert("Please enter a valid email address");
-    return;
-  }
-
-  if (password.trim() === "") {
-    alert("Please enter a password");
-    return;
-  }
-
-  // Prepare data for POST request
-  const formData = {
-    email: email,
-    password: password,
-  };
-
-  // Send POST request to API for user login
-  fetch("http://localhost/api.php?action=login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Display success message or error message from API response
-      alert(data.message);
-      // Reset form fields if login is successful
-      if (data.message === "Login successful") {
-        document.getElementById("loginForm").reset();
-      }
-    })
-    .catch((error) => {
-      console.error("Error logging in:", error);
-      alert("An error occurred while logging in. Please try again later.");
-    });
+// Function to send data to the backend (replace this with your actual implementation)
+function sendDataToBackend(rsoName, description) {
+  // Implement sending data to the backend here
+  console.log("RSO Name: " + rsoName);
+  console.log("Description: " + description);
 }
 
 // Function to handle event creation form submission
@@ -192,18 +178,6 @@ function fetchEvents() {
     });
 }
 
-// Add event listeners to form submissions
-const eventRegistrationForm = document.getElementById("registrationForm");
-if (eventRegistrationForm) {
-  eventRegistrationForm.addEventListener("submit", handleRegistration);
-}
-
-// For the login page
-const eventLoginForm = document.getElementById("loginForm");
-if (eventLoginForm) {
-  eventLoginForm.addEventListener("submit", handleLogin);
-}
-
 // For the event creation page
 const eventCreationForm = document.getElementById("eventCreationForm");
 if (eventCreationForm) {
@@ -216,4 +190,9 @@ document.addEventListener("DOMContentLoaded", fetchEvents);
 // Add event listener to toggle between forms
 document.querySelectorAll(".toggle-btn").forEach((button) => {
   button.addEventListener("click", toggleForm);
+});
+
+// Event to redirect user to create_event.html when "Add" button is clicked
+document.getElementById("addButton").addEventListener("click", function () {
+  window.location.href = "create_event.html";
 });

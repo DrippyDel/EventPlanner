@@ -4,14 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Listing</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <div class="navbar">
+      <div class="greeting">Welcome, <a id="greet-user">User</a>!</div>
+      <button class="createRSOButton">Create RSO</button>
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." />
+        <!-- <button>Search</button> -->
+      </div>
+      <button id="logoutButton">Logout</button>
+    </div>
+
     <div class="container">
       <h2>Event Listing</h2>
       <!-- Event listing content goes here -->
+      <button id="addButton">
+        <img
+          src="./pic/Custom-Icon-Design-Mono-General-1-Add.512.png"
+          alt="Add Event"
+          style="width: 20px; padding-top: 2px"
+        />
+      </button>
     </div>
 
-    <script src="script.js"></script>
+    <div id="createRSOModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create RSO</h2>
+        <form id="createRSOForm">
+          <label for="rsoName">RSO Name:</label>
+          <input type="text" id="rsoName" name="rsoName" required />
+          <label for="description">Description:</label>
+          <textarea id="description" name="description"></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./js/script.js"></script>
   </body>
 </html>
