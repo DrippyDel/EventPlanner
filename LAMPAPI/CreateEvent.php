@@ -1,13 +1,12 @@
 <?php
     $inData = getRequestInfo();
-    $time = $inData["time"];
     $location = $inData["location"];
     $eventName = $inData["eventName"];
     $description = $inData["description"];
     $eventType = $inData["eventType"];
 
     // Create database connection
-     $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
+    $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
 
     // Check connection
     if ($conn->connect_error)
@@ -16,8 +15,8 @@
     }
     else
     {
-        $stmt = $conn->prepare("INSERT INTO Events (Time, Location, Event_name, Description, EventType) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $time, $location, $eventName, $description, $eventType);
+        $stmt = $conn->prepare("INSERT INTO Events (Location, Event_name, Description, EventType) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $location, $eventName, $description, $eventType);
 
         if ($stmt->execute()) {
             // Get the ID of the last inserted row
