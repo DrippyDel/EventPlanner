@@ -64,7 +64,7 @@ if (userData && userData.Username) {
 const user = JSON.parse(localStorage.getItem("user"));
 
 // Check if user data exists and if the user has admin privileges
-if (user && user.Privileges === "admin") {
+if (user && user.Privileges === "Admin") {
   // If the user has admin privileges, display the addButton
   document.getElementById("addButton").style.display = "block";
 } else {
