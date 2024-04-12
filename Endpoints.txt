@@ -17,17 +17,19 @@ Create User:
 	  "Password": "",
 	  "Email": "",
 	  "FirstName": "",
-	  "LastName": ""
+	  "LastName": "",
+	 "University": "",
 	  "Privileges": " "
 	}
 	Example:
 	{
-	  "Username": "Drippy",
-	  "Password": "test",
-	  "Email": "drippy@example.com",
-	  "FirstName": "Delali",
-	  "LastName": "Ekpeh"
-	  "Privileges": " "
+	  "Username": "JuiceBox",
+	  "Password": "999",
+	  "Email": "999wrld@example.com",
+	  "FirstName": "Jared",
+	  "LastName": "Wiggins",
+	  "University": "University of Central Florida",
+	  "Privileges": "Student"
 	}
 	Response:
 	Success (Status Code: 200):
