@@ -150,7 +150,7 @@ window.onclick = function (event) {
   }
 };
 
-// Form submission handling
+// createRSOForm submission handling
 document
   .getElementById("createRSOForm")
   .addEventListener("submit", function (event) {
@@ -191,6 +191,118 @@ document
           alert("Failed to create RSO: " + data.error);
         } else {
           alert("RSO created successfully");
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating RSO:", error);
+        // Handle errors if the request fails
+        alert(
+          "An error occurred while creating the RSO. Please try again later."
+        );
+      });
+
+    // Close the modal after form submission
+    modal.style.display = "none";
+  });
+
+// joinRSOForm submission handling
+document
+  .getElementById("joinRSOForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var rsoNameToJoin = document.getElementById("rsoNameToJoin").value;
+
+    const userData = JSON.parse(localStorage.getItem("user"));
+    let username;
+
+    // Check if user data exists
+    if (userData) {
+      // Access the username property
+      username = userData.Username;
+      console.log("Username:", username);
+    } else {
+      console.log("User data not found in local storage");
+    }
+
+    /// Construct the data object to be sent to the endpoint
+    const formData = {
+      username: username,
+      RSOName: rsoNameToJoin,
+    };
+
+    // Make a POST request to the endpoint
+    fetch("http://104.131.71.40/LAMPAPI/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          alert("Failed to join RSO: " + data.error);
+        } else {
+          alert("Joined RSO successfully");
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating RSO:", error);
+        // Handle errors if the request fails
+        alert(
+          "An error occurred while creating the RSO. Please try again later."
+        );
+      });
+
+    // Close the modal after form submission
+    modal.style.display = "none";
+  });
+
+// addSchoolForm submission handling
+document
+  .getElementById("addSchoolForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var schoolName = document.getElementById("schoolName").value;
+    var schoolAddress = document.getElementById("schoolAddress").value;
+    var schoolLatitude = document.getElementById("schoolLatitude").value;
+    var schoolLongitude = document.getElementById("schoolLongitude").value;
+
+    const userData = JSON.parse(localStorage.getItem("user"));
+    let username;
+
+    // Check if user data exists
+    if (userData) {
+      // Access the username property
+      username = userData.Username;
+      console.log("Username:", username);
+    } else {
+      console.log("User data not found in local storage");
+    }
+
+    /// Construct the data object to be sent to the endpoint
+    const formData = {
+      username: username,
+      schoolName: schoolName,
+      schoolAddress: schoolAddress,
+      schoolLatitude: schoolLatitude,
+      schoolLongitude: schoolLongitude,
+    };
+
+    // Make a POST request to the endpoint
+    fetch("http://104.131.71.40/LAMPAPI/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          alert("Failed to add school: " + data.error);
+        } else {
+          alert("School added successfully");
         }
       })
       .catch((error) => {
