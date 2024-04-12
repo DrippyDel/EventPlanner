@@ -50,13 +50,13 @@
     
     function returnWithError($err)
     {
-        $retValue = '{"UID":0,"FirstName":"","LastName":"","Privileges":"",error":"' . $err . '"}';
+        $retValue = '{"UID":0,"FirstName":"","LastName":"","Privileges":"","error":"' . $err . '"}';
         sendResultInfoAsJson($retValue);
     }
     
-    function returnWithInfo($firstName, $lastName, $UID,Privileges)
+    function returnWithInfo($firstName, $lastName, $UID, $Privileges)
     {
-        $retValue = '{"UID":' . $UID . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName . '", "Privileges": '. $Privileges ',"error":""}';
+        $retValue = '{"UID":' . $UID . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName . '", "Privileges": "' . $Privileges . '","error":""}';
         sendResultInfoAsJson($retValue);
     }
 ?>
