@@ -24,7 +24,7 @@
             returnWithError("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("ssssss", $Username, $Password, $Email, $FirstName, $LastName,$Privileges);
+        $stmt->bind_param("ssssss", $Username, $Password, $Email, $FirstName, $LastName, $Privileges);
         
         // Execute the prepared statement
         if ($stmt->execute())
