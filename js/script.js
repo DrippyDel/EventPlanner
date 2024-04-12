@@ -380,6 +380,7 @@ function fetchEvents() {
         // Create comment section
         const commentSection = document.createElement("div");
         commentSection.classList.add("comment-section");
+        commentSection.style.display = "none"; // Hide comment section initially
 
         const commentTitle = document.createElement("h4");
         commentTitle.textContent = "Comments";
@@ -397,6 +398,16 @@ function fetchEvents() {
         const commentSubmitBtn = document.createElement("button");
         commentSubmitBtn.classList.add("comment-submit");
         commentSubmitBtn.textContent = "Submit";
+
+        // Toggle comment section visibility on button click
+        commentSubmitBtn.addEventListener("click", () => {
+          if (commentSection.style.display === "none") {
+            commentSection.style.display = "block";
+          } else {
+            commentSection.style.display = "none";
+          }
+        });
+
         commentSection.appendChild(commentSubmitBtn);
 
         eventCard.appendChild(commentSection);

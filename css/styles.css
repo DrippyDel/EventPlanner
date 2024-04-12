@@ -12,12 +12,12 @@ body {
 
 .container {
   max-width: 600px;
-  margin: 20px auto;
+  margin: 80px auto 20px; /* Adjust top margin to account for fixed navbar */
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative; /* Position the container */
+  position: relative;
 }
 
 #addButton {
@@ -93,12 +93,17 @@ button[type="submit"]:hover {
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
   color: #fff;
   padding: 10px;
+  z-index: 1000; /* Ensure the navbar stays above other content */
 }
 
 .search-bar {
