@@ -51,29 +51,26 @@
                         // Insert event into appropriate table based on event type
                         switch ($eventType) {
                             case "RSO":
-                                $stmt = $conn->prepare("INSERT INTO RSO_Events (RSO_ID, Events_ID) VALUES (?, ?)");
+                                $stmt2 = $conn->prepare("INSERT INTO RSO_Events (RSO_ID, Events_ID) VALUES (?, ?)");
+                                $stmt2->bind_param("ii", $userID, $last_id);
                                 break;
                             case "Public":
-                                $stmt = $conn->prepare("INSERT INTO Public_Events (SuperAdmin_ID, Event_Name, Description, Time, Location) VALUES (?, ?, ?, ?, ?)");
+                                $stmt2 = $conn->prepare("INSERT INTO Public_Events (Event_Name, Description, Location) VALUES (?, ?, ?)");
+                                $stmt2->bind_param("sss", $eventName, $description, $location);
                                 break;
                             case "Private":
-                                $stmt = $conn->prepare("INSERT INTO Private_Events (Admin_ID, Event_Name, Description, Time, Location) VALUES (?, ?, ?, ?, ?)");
+                                $stmt2 = $conn->prepare("INSERT INTO Private_Events (Event_Name, Description, Location) VALUES (?, ?, ?)");
+                                $stmt2->bind_param("sss", $eventName, $description, $location);
                                 break;
                             default:
                                 // If the event type is none of the above, insert into Events table
-                                $stmt = $conn->prepare("INSERT INTO Events (Location, Location_Address, Event_name, Description, EventType, Event_Day, Event_Time) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                $stmt2 = $conn->prepare("INSERT INTO Events (Location_Address, Event_name, Description, EventType, Event_Day, Event_Time) VALUES (?, ?, ?, ?, ?, ?)");
+                                $stmt2->bind_param("ssssss", $locationAddress, $eventName, $description, $eventType, $eventDay, $eventTime);
                         }
                         
                         // Bind parameters and execute the statement
-                        if (isset($stmt)) {
-                            if ($eventType === "RSO") {
-                                $stmt->bind_param("ii", $userID, $last_id);
-                            } else if ($eventType === "Public" || $eventType === "Private") {
-                                $stmt->bind_param("issss", $userID, $eventName, $description, $eventTime, $location);
-                            } else {
-                                $stmt->bind_param("sssssss", $location, $locationAddress, $eventName, $description, $eventType, $eventDay, $eventTime);
-                            }
-                            $stmt->execute();
+                        if (isset($stmt2)) {
+                            $stmt2->execute();
                         }
                         
                         // Return the ID as JSON response
