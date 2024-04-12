@@ -284,9 +284,9 @@ document
     const formData = {
       username: username,
       schoolName: schoolName,
-      schoolAddress: schoolAddress,
-      schoolLatitude: schoolLatitude,
-      schoolLongitude: schoolLongitude,
+      address: schoolAddress,
+      longitude: schoolLatitude,
+      latitude: schoolLongitude,
     };
 
     // Make a POST request to the endpoint
