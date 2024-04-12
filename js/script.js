@@ -49,6 +49,18 @@
 //     });
 // }
 
+// Retrieve user data from local storage
+const userData = JSON.parse(localStorage.getItem("user"));
+
+// Check if user data exists and if the user has admin privileges
+if (userData && userData.Privileges === "admin") {
+  // If the user has admin privileges, display the addButton
+  document.getElementById("addButton").style.display = "block";
+} else {
+  // If the user does not have admin privileges, hide the addButton
+  document.getElementById("addButton").style.display = "none";
+}
+
 // Get the modal
 var modal = document.getElementById("createRSOModal");
 
