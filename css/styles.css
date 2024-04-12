@@ -367,5 +367,5 @@ button[type="submit"]:hover {
 }
 
 .comment-section {
-  display: none; /* Hide the comment section initially */
+  display: block;
 }
