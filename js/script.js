@@ -320,6 +320,7 @@ document
 // Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
+  console.log("userData:", userData);
   let username;
 
   // Check if user data exists
