@@ -41,15 +41,15 @@ function handleEventCreation(event) {
 
   // Prepare data for POST request
   const formData = {
-    Username: username,
+    username: username,
     eventName: eventName,
     eventType: eventType,
     description: eventDescription,
-    eventDate: eventDate,
+    eventDay: eventDate,
     eventTime: eventTime,
-    eventLocationName: eventLocationName,
-    eventAddress: eventAddress,
-    eventPermission: eventPermission,
+    location: eventLocationName,
+    locationAddress: eventAddress,
+    superAdminID: eventPermission,
   };
 
   // Send POST request to API for event creation
