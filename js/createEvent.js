@@ -18,22 +18,18 @@ function handleEventCreation(event) {
     return;
   }
 
-  if (eventCategory === "") {
-    alert("Please select an event category");
-    return;
-  }
-
   if (eventDescription.trim() === "") {
     alert("Please enter an event description");
     return;
   }
 
   const userData = JSON.parse(localStorage.getItem("user"));
+  let username;
 
   // Check if user data exists
   if (userData) {
     // Access the username property
-    const username = userData.Username;
+    username = userData.Username;
     console.log("Username:", username);
   } else {
     console.log("User data not found in local storage");
