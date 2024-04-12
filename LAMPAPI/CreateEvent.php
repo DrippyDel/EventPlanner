@@ -7,7 +7,7 @@
     $eventType = $inData["eventType"];
 
     // Create database connection
-    $conn = new mysqli("localhost", "TheApi", "1verygoodPassword", "COP4331");
+     $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
 
     // Check connection
     if ($conn->connect_error)
