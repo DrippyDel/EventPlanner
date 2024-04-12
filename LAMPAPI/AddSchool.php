@@ -1,5 +1,6 @@
 <?php
     $inData = getRequestInfo();
+    $username = $inData["username"]; // Added line
     $schoolName = $inData["schoolName"];
     $address = $inData["address"];
     $longitude = $inData["longitude"];
@@ -22,6 +23,12 @@
         if ($stmt->execute()) {
             // Get the ID of the last inserted row
             $last_id = $conn->insert_id;
+
+            // Update University field in Users table
+            $stmt = $conn->prepare("UPDATE Users SET University = ? WHERE Username = ?");
+            $stmt->bind_param("ss", $schoolName, $username);
+            $stmt->execute();
+
             // Return the ID as JSON response
             sendResultInfoAsJson(json_encode(["message" => "New School Location was created", "id" => $last_id]));
         } else {
