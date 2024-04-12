@@ -100,8 +100,6 @@ function handleRegistration(event) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Display success message or error message from API response
-        alert(data.error);
         // Reset form fields if registration is successful
         if (data.error === "") {
           // Redirect user to event_listing.html after successful login
@@ -196,8 +194,6 @@ function handleLogin(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Display success message or error message from API response
-      alert(data.error);
       // Reset form fields if login is successful
       if (data.error === "") {
         // Redirect user to event_listing.html after successful login
