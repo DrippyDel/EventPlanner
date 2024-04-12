@@ -332,7 +332,7 @@ function fetchEvents() {
   }
 
   // Fetch events from API
-  fetch("http://104.131.71.40/LAMPAPI/", {
+  fetch("http://104.131.71.40/LAMPAPI/GetEventsByUser.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
