@@ -138,6 +138,14 @@ Get Events By User
 	Response:
 		Success (Status Code: 200):
 			** All events would display since Ricky is a Admin"
+			"Events_ID": 16,
+		        "Location_Address": "3241 Frat Row St, Orlando, FL, 32826",
+		        "Event_name": "ZTA RUSH EVENT",
+		        "Description": "Come find out about our neet Frat",
+		        "EventType": "Public",
+		        "Event_Day": "2024-04-01",
+		        "Event_Time": "03:30:00",
+		        "Location": "University of Central Florida"
 	Error (Status Code: 400):
 		JSON object with an error field describing the encountered error(s).
 
