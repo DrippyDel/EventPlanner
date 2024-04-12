@@ -121,6 +121,27 @@ Create Event:
            **Note As long as you pass in the Username of the user that is logged in the api would check the privilages for you.
 		  Creating Event would also populate corresponding Event tables in the database.
 
+Get Events By User
+	Registration Endpoint
+	Endpoint: POST http://104.131.71.40/LAMPAPI/GetEventsByUser.php
+	Description: Returns all the events that correspond to the user
+	Request Payload:
+		JSON object with the following fields:
+		{
+		 "username": "",
+		}
+		Example:
+		{
+		    "username": "Ricky",
+		
+		}
+	Response:
+		Success (Status Code: 200):
+			** All events would display since Ricky is a Admin"
+	Error (Status Code: 400):
+		JSON object with an error field describing the encountered error(s).
+
+
 			
 RSO
 
