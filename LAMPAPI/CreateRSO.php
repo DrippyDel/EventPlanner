@@ -11,27 +11,23 @@
     if ($conn->connect_error) {
         returnWithError($conn->connect_error);
     } else {
-        // Check if the user has Admin privileges
-        $stmt = $conn->prepare("SELECT Privileges FROM Users WHERE Username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Proceed with RSO creation
+        $stmt = $conn->prepare("INSERT INTO RSO (RSO_Name, Description) VALUES (?, ?)");
+        $stmt->bind_param("ss", $RSOName, $description);
 
-        // If user has Admin privileges, proceed with RSO creation
-        if ($result->num_rows > 0 && $result->fetch_assoc()["Privileges"] === "Admin") {
-            $stmt = $conn->prepare("INSERT INTO RSO (RSO_Name, Description) VALUES (?, ?)");
-            $stmt->bind_param("ss", $RSOName, $description);
+        if ($stmt->execute()) {
+            // Get the ID of the last inserted row
+            $last_id = $conn->insert_id;
 
-            if ($stmt->execute()) {
-                // Get the ID of the last inserted row
-                $last_id = $conn->insert_id;
-                // Return the ID as JSON response
-                sendResultInfoAsJson(json_encode(["message" => "New RSO was created", "id" => $last_id]));
-            } else {
-                returnWithError($conn->error);
-            }
+            // Update user's privileges to Admin
+            $stmt = $conn->prepare("UPDATE Users SET Privileges = 'Admin', RSO_ID = ? WHERE Username = ?");
+            $stmt->bind_param("is", $last_id, $username);
+            $stmt->execute();
+
+            // Return the ID as JSON response
+            sendResultInfoAsJson(json_encode(["message" => "New RSO was created", "id" => $last_id]));
         } else {
-            returnWithError("User does not have sufficient privileges to create an RSO.");
+            returnWithError($conn->error);
         }
 
         $stmt->close();

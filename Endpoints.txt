@@ -142,11 +142,9 @@ Create RSO:
 ⦁	Success (Status Code: 200):
 ⦁	"New RSO was created",
 ⦁	"id" : 1
-⦁	Error (Privilages is not Admin):
-⦁	"User does not have sufficient privileges to create an RSO."
 ⦁	Error (Status Code: 400):
 ⦁	JSON object with an error field describing the encountered error(s).
-           **Note As long as you pass in the Username of the user that is logged 	in the api would check the privilages for you.
+           **Note User is promoted to Admin when they create an RSO and their RSO_ID is updated.
 
 Comment
 
