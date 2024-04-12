@@ -17,17 +17,19 @@ Create User:
 	  "Password": "",
 	  "Email": "",
 	  "FirstName": "",
-	  "LastName": ""
+	  "LastName": "",
+	 "University": "",
 	  "Privileges": " "
 	}
 	Example:
 	{
-	  "Username": "Drippy",
-	  "Password": "test",
-	  "Email": "drippy@example.com",
-	  "FirstName": "Delali",
-	  "LastName": "Ekpeh"
-	  "Privileges": " "
+	  "Username": "JuiceBox",
+	  "Password": "999",
+	  "Email": "999wrld@example.com",
+	  "FirstName": "Jared",
+	  "LastName": "Wiggins",
+	  "University": "University of Central Florida",
+	  "Privileges": "Student"
 	}
 	Response:
 	Success (Status Code: 200):
@@ -197,4 +199,31 @@ Create Comment:
 	"id" : 1
 	Error (Status Code: 400):
 	JSON object with an error field describing the encountered error(s).
-       
+
+Locations
+
+Add School:
+Registration Endpoint
+	Endpoint: POST http://104.131.71.40/LAMPAPI/AddSchool.php
+	Description: Registers a new School as a location.
+	Request Payload:
+	JSON object with the following fields:
+	{
+	    "schoolName": " ",
+	    "address": "",
+	    "longitude": ,
+	    "latitude":
+	}
+	Example:
+	{
+	   "schoolName": "University of North Florida",
+	    "address": "1234 Beach Blvd, Jacksonville, FL, 32246",
+	    "longitude": -87.6354,
+	    "latitude": 41.8781
+	}
+	Response:
+	 Success (Status Code: 200):
+		"message": "New School Location was created",
+	   		 "id": 0
+	 Error (Status Code: 400):
+		JSON object with an error field describing the encountered error(s).
