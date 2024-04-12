@@ -6,6 +6,7 @@
     $Password = $inData["Password"];
     $Email = $inData["Email"];
     $Privileges = $inData["Privileges"];
+    $University = $inData["University"]; // Added University field
 
     // Create database connection
     $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
@@ -17,14 +18,14 @@
     }
     else
     {
-        $stmt = $conn->prepare("INSERT INTO Users (Username, Password, Email, FirstName, LastName, Privileges) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Users (Username, Password, Email, FirstName, LastName, University, Privileges) VALUES (?, ?, ?, ?, ?, ?, ?)");
         
         // Check if the statement was prepared successfully
         if ($stmt === false) {
             returnWithError("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("ssssss", $Username, $Password, $Email, $FirstName, $LastName, $Privileges);
+        $stmt->bind_param("sssssss", $Username, $Password, $Email, $FirstName, $LastName, $University, $Privileges); // Added University field
         
         // Execute the prepared statement
         if ($stmt->execute())
