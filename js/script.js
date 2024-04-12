@@ -48,12 +48,23 @@
 //       alert("An error occurred while logging in. Please try again later.");
 //     });
 // }
-
 // Retrieve user data from local storage
 const userData = JSON.parse(localStorage.getItem("user"));
 
+// Check if user data exists and if the username is available
+if (userData && userData.Username) {
+  // If the username is available, update the welcome message
+  document.getElementById("greet-user").textContent = userData.Username;
+} else {
+  // If the username is not available, display a default welcome message
+  document.getElementById("greet-user").textContent = "User";
+}
+
+// Retrieve user data from local storage
+const user = JSON.parse(localStorage.getItem("user"));
+
 // Check if user data exists and if the user has admin privileges
-if (userData && userData.Privileges === "admin") {
+if (user && user.Privileges === "admin") {
   // If the user has admin privileges, display the addButton
   document.getElementById("addButton").style.display = "block";
 } else {
