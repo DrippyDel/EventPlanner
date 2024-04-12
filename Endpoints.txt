@@ -209,6 +209,7 @@ Registration Endpoint
 	Request Payload:
 	JSON object with the following fields:
 	{
+	   "username": "",
 	    "schoolName": " ",
 	    "address": "",
 	    "longitude": ,
@@ -216,6 +217,7 @@ Registration Endpoint
 	}
 	Example:
 	{
+	   "username": "21notSavage",
 	   "schoolName": "University of North Florida",
 	    "address": "1234 Beach Blvd, Jacksonville, FL, 32246",
 	    "longitude": -87.6354,
