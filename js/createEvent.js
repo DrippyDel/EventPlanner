@@ -56,17 +56,13 @@ function handleEventCreation(event) {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => {
-      if (response.ok) {
-        // If response status is within the range 200-299
-        alert("Event created successfully");
-      }
-      return response.json(); // Parse JSON response
-    })
+    .then((response) => response.json())
     .then((data) => {
       // Reset form fields if event creation is successful
       if (data.error) {
         alert("Failed to create event: " + data.error);
+      } else {
+        alert("Event created successfully");
       }
 
       document.getElementById("eventCreationForm").reset();
