@@ -303,3 +303,60 @@ button[type="submit"]:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Event card styles */
+.event-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.event-card h3.event-name {
+  margin-top: 0;
+  color: #333333;
+}
+
+.event-card p {
+  margin: 10px 0;
+  color: #666666;
+}
+
+.event-card .comment-section {
+  margin-top: 20px;
+}
+
+.event-card .comment-section h4 {
+  margin-top: 0;
+}
+
+.event-card .comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-card .comment-list li {
+  margin-bottom: 10px;
+}
+
+.event-card .comment-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.event-card .comment-submit {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.event-card .comment-submit:hover {
+  background-color: #0056b3;
+}

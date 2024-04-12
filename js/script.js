@@ -348,32 +348,61 @@ function fetchEvents() {
       eventList.innerHTML = ""; // Clear previous event list
 
       data.forEach((event) => {
-        // Create elements to display event information
-        const eventItem = document.createElement("div");
-        eventItem.classList.add("event-item");
+        // Create event card
+        const eventCard = document.createElement("div");
+        eventCard.classList.add("event-card");
 
         const eventName = document.createElement("h3");
+        eventName.classList.add("event-name");
         eventName.textContent = event.Event_name;
-        eventItem.appendChild(eventName);
+        eventCard.appendChild(eventName);
 
         const eventLocation = document.createElement("p");
+        eventLocation.classList.add("event-location");
         eventLocation.textContent = `Location: ${event.Location_Address}`;
-        eventItem.appendChild(eventLocation);
+        eventCard.appendChild(eventLocation);
 
         const eventDescription = document.createElement("p");
+        eventDescription.classList.add("event-description");
         eventDescription.textContent = `Description: ${event.Description}`;
-        eventItem.appendChild(eventDescription);
+        eventCard.appendChild(eventDescription);
 
         const eventType = document.createElement("p");
+        eventType.classList.add("event-type");
         eventType.textContent = `Type: ${event.EventType}`;
-        eventItem.appendChild(eventType);
+        eventCard.appendChild(eventType);
 
         const eventDateTime = document.createElement("p");
+        eventDateTime.classList.add("event-date-time");
         eventDateTime.textContent = `Date & Time: ${event.Event_Day} ${event.Event_Time}`;
-        eventItem.appendChild(eventDateTime);
+        eventCard.appendChild(eventDateTime);
 
-        // Append event item to the event list
-        eventList.appendChild(eventItem);
+        // Create comment section
+        const commentSection = document.createElement("div");
+        commentSection.classList.add("comment-section");
+
+        const commentTitle = document.createElement("h4");
+        commentTitle.textContent = "Comments";
+        commentSection.appendChild(commentTitle);
+
+        const commentList = document.createElement("ul");
+        commentList.classList.add("comment-list");
+        commentSection.appendChild(commentList);
+
+        const commentInput = document.createElement("textarea");
+        commentInput.classList.add("comment-input");
+        commentInput.placeholder = "Add a comment";
+        commentSection.appendChild(commentInput);
+
+        const commentSubmitBtn = document.createElement("button");
+        commentSubmitBtn.classList.add("comment-submit");
+        commentSubmitBtn.textContent = "Submit";
+        commentSection.appendChild(commentSubmitBtn);
+
+        eventCard.appendChild(commentSection);
+
+        // Append event card to event list
+        eventList.appendChild(eventCard);
       });
     })
     .catch((error) => {
