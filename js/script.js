@@ -329,6 +329,7 @@ function fetchEvents() {
     console.log("Username:", username);
   } else {
     console.log("User data not found in local storage");
+    return; // Exit function if user data is not available
   }
 
   // Fetch events from API
@@ -346,8 +347,31 @@ function fetchEvents() {
       eventList.innerHTML = ""; // Clear previous event list
 
       data.forEach((event) => {
-        const eventItem = document.createElement("li");
-        eventItem.textContent = `${event.name} - ${event.category}`;
+        // Create elements to display event information
+        const eventItem = document.createElement("div");
+        eventItem.classList.add("event-item");
+
+        const eventName = document.createElement("h3");
+        eventName.textContent = event.Event_name;
+        eventItem.appendChild(eventName);
+
+        const eventLocation = document.createElement("p");
+        eventLocation.textContent = `Location: ${event.Location_Address}`;
+        eventItem.appendChild(eventLocation);
+
+        const eventDescription = document.createElement("p");
+        eventDescription.textContent = `Description: ${event.Description}`;
+        eventItem.appendChild(eventDescription);
+
+        const eventType = document.createElement("p");
+        eventType.textContent = `Type: ${event.EventType}`;
+        eventItem.appendChild(eventType);
+
+        const eventDateTime = document.createElement("p");
+        eventDateTime.textContent = `Date & Time: ${event.Event_Day} ${event.Event_Time}`;
+        eventItem.appendChild(eventDateTime);
+
+        // Append event item to the event list
         eventList.appendChild(eventItem);
       });
     })
