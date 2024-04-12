@@ -158,10 +158,48 @@ document
     var rsoName = document.getElementById("rsoName").value;
     var description = document.getElementById("description").value;
 
-    // You can perform validation here before sending the data to the backend
+    const userData = JSON.parse(localStorage.getItem("user"));
+    let username;
 
-    // Assuming you have a function to send data to the backend
-    sendDataToBackend(rsoName, description);
+    // Check if user data exists
+    if (userData) {
+      // Access the username property
+      username = userData.Username;
+      console.log("Username:", username);
+    } else {
+      console.log("User data not found in local storage");
+    }
+
+    /// Construct the data object to be sent to the endpoint
+    const formData = {
+      username: username,
+      RSOName: rsoName,
+      description: description,
+    };
+
+    // Make a POST request to the endpoint
+    fetch("http://104.131.71.40/LAMPAPI/CreateRSO.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          alert("Failed to create event: " + data.error);
+        } else {
+          alert("Event created successfully");
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating RSO:", error);
+        // Handle errors if the request fails
+        alert(
+          "An error occurred while creating the RSO. Please try again later."
+        );
+      });
 
     // Close the modal after form submission
     modal.style.display = "none";

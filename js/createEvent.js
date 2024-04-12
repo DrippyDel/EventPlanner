@@ -58,7 +58,6 @@ function handleEventCreation(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Reset form fields if event creation is successful
       if (data.error) {
         alert("Failed to create event: " + data.error);
       } else {
