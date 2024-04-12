@@ -10,7 +10,6 @@
     $superAdminID = $inData["superAdminID"];
     $locationAddress = $inData["locationAddress"];
 
-
     // Create database connection
     $conn = new mysqli("localhost", "Admin", "password", "EventPlannerDB");
 
@@ -45,10 +44,38 @@
                     $stmt = $conn->prepare("INSERT INTO Events (Location, Location_Address, Event_name, Description, EventType, Event_Day, Event_Time) VALUES (?, ?, ?, ?, ?, ?, ?)");
                     $stmt->bind_param("sssssss", $location, $locationAddress, $eventName, $description, $eventType, $eventDay, $eventTime);
 
-
                     if ($stmt->execute()) {
                         // Get the ID of the last inserted row
                         $last_id = $conn->insert_id;
+                        
+                        // Insert event into appropriate table based on event type
+                        switch ($eventType) {
+                            case "RSO":
+                                $stmt = $conn->prepare("INSERT INTO RSO_Events (RSO_ID, Events_ID) VALUES (?, ?)");
+                                break;
+                            case "Public":
+                                $stmt = $conn->prepare("INSERT INTO Public_Events (SuperAdmin_ID, Event_Name, Description, Time, Location) VALUES (?, ?, ?, ?, ?)");
+                                break;
+                            case "Private":
+                                $stmt = $conn->prepare("INSERT INTO Private_Events (Admin_ID, Event_Name, Description, Time, Location) VALUES (?, ?, ?, ?, ?)");
+                                break;
+                            default:
+                                // If the event type is none of the above, insert into Events table
+                                $stmt = $conn->prepare("INSERT INTO Events (Location, Location_Address, Event_name, Description, EventType, Event_Day, Event_Time) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                        }
+                        
+                        // Bind parameters and execute the statement
+                        if (isset($stmt)) {
+                            if ($eventType === "RSO") {
+                                $stmt->bind_param("ii", $userID, $last_id);
+                            } else if ($eventType === "Public" || $eventType === "Private") {
+                                $stmt->bind_param("issss", $userID, $eventName, $description, $eventTime, $location);
+                            } else {
+                                $stmt->bind_param("sssssss", $location, $locationAddress, $eventName, $description, $eventType, $eventDay, $eventTime);
+                            }
+                            $stmt->execute();
+                        }
+                        
                         // Return the ID as JSON response
                         sendResultInfoAsJson(json_encode(["message" => "New Event Record was created", "id" => $last_id]));
                     } else {
