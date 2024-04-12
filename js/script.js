@@ -231,7 +231,7 @@ document
     };
 
     // Make a POST request to the endpoint
-    fetch("http://104.131.71.40/LAMPAPI/", {
+    fetch("http://104.131.71.40/LAMPAPI/JoinRSO.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -317,17 +317,27 @@ document
     modal.style.display = "none";
   });
 
-// Function to send data to the backend (replace this with your actual implementation)
-function sendDataToBackend(rsoName, description) {
-  // Implement sending data to the backend here
-  console.log("RSO Name: " + rsoName);
-  console.log("Description: " + description);
-}
-
 // Function to fetch and display events
 function fetchEvents() {
+  const userData = JSON.parse(localStorage.getItem("user"));
+  let username;
+
+  // Check if user data exists
+  if (userData) {
+    // Access the username property
+    username = userData.Username;
+    console.log("Username:", username);
+  } else {
+    console.log("User data not found in local storage");
+  }
+
   // Fetch events from API
-  fetch("http://localhost/api.php?action=getEvents")
+  fetch("http://104.131.71.40/LAMPAPI/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
     .then((response) => response.json())
     .then((data) => {
       // Display events on the webpage
