@@ -337,6 +337,7 @@ function fetchEvents() {
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({ username: username }),
   })
     .then((response) => response.json())
     .then((data) => {
