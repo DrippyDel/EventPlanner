@@ -76,6 +76,7 @@ Login:
 ⦁	JSON object with an error field describing the encountered error(s).
 
 Events
+
 Create Event:
 ⦁	Registration Endpoint
 ⦁	Endpoint: POST http://104.131.71.40/LAMPAPI/CreateEvent.php
@@ -118,7 +119,7 @@ Create Event:
            **Note As long as you pass in the Username of the user that is logged 	in the api would check the privilages for you.
 
 			
-Events
+RSO
 
 Create RSO:
 ⦁	Registration Endpoint
