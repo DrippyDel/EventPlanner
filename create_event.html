@@ -15,13 +15,21 @@
           <input type="text" id="eventName" name="eventName" required />
         </div>
         <div class="form-group">
-          <label for="eventCategory">Event Category:</label>
-          <select id="eventCategory" name="eventCategory" required>
-            <option value="">Select Category</option>
-            <option value="social">Social</option>
-            <option value="fundraising">Fundraising</option>
-            <option value="techTalk">Tech Talk</option>
+          <label for="eventType">Event Type:</label>
+          <select id="eventType" name="eventType" required>
+            <option value="">Select Type</option>
+            <option value="social">Private</option>
+            <option value="fundraising">Public</option>
+            <option value="techTalk">RSO</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Event Date:</label>
+          <input type="date" id="eventDate" name="eventDate" required />
+        </div>
+        <div class="form-group">
+          <label for="eventTime">Event Time:</label>
+          <input type="time" id="eventTime" name="eventTime" required />
         </div>
         <div class="form-group">
           <label for="eventDescription">Event Description:</label>
@@ -31,10 +39,32 @@
             required
           ></textarea>
         </div>
+        <div class="form-group">
+          <label for="eventLocationName">Location Name:</label>
+          <input
+            type="text"
+            id="eventLocationName"
+            name="eventLocationName"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="eventAddress">Address:</label>
+          <input type="text" id="eventAddress" name="eventAddress" required />
+        </div>
+        <div class="form-group">
+          <label for="eventPermission">Event Permission Code:</label>
+          <input
+            type="text"
+            id="eventPermission"
+            name="eventPermission"
+            required
+          />
+        </div>
         <button type="submit">Create Event</button>
       </form>
     </div>
 
-    <script src="./js/script.js"></script>
+    <script src="./js/createEvent.js"></script>
   </body>
 </html>

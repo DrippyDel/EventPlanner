@@ -75,6 +75,58 @@ window.onclick = function (event) {
   }
 };
 
+// Get the button for joining RSO
+var joinRSOButton = document.getElementById("joinRSOButton");
+
+// When the user clicks the "Join RSO" button, open the modal
+joinRSOButton.onclick = function () {
+  joinRSOModal.style.display = "block";
+};
+
+// Get the modal for joining RSO
+var joinRSOModal = document.getElementById("joinRSOModal");
+
+// Get the <span> element that closes the "Join RSO" modal
+var closeJoinRSOBtn = document.getElementById("closeJoinRSO");
+
+// When the user clicks on <span> (x) inside the "Join RSO" modal, close it
+closeJoinRSOBtn.onclick = function () {
+  joinRSOModal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the "Join RSO" modal, close it
+window.onclick = function (event) {
+  if (event.target == joinRSOModal) {
+    joinRSOModal.style.display = "none";
+  }
+};
+
+// Get the button for adding a school
+var addSchoolButton = document.getElementById("addSchoolButton");
+
+// When the user clicks the "Add School" button, open the modal
+addSchoolButton.onclick = function () {
+  addSchoolModal.style.display = "block";
+};
+
+// Get the modal for adding a school
+var addSchoolModal = document.getElementById("addSchoolModal");
+
+// Get the <span> element that closes the "Add School" modal
+var closeAddSchoolBtn = document.getElementById("closeAddSchool");
+
+// When the user clicks on <span> (x) inside the "Add School" modal, close it
+closeAddSchoolBtn.onclick = function () {
+  addSchoolModal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the "Add School" modal, close it
+window.onclick = function (event) {
+  if (event.target == addSchoolModal) {
+    addSchoolModal.style.display = "none";
+  }
+};
+
 // Form submission handling
 document
   .getElementById("createRSOForm")
@@ -99,63 +151,6 @@ function sendDataToBackend(rsoName, description) {
   console.log("Description: " + description);
 }
 
-// Function to handle event creation form submission
-function handleEventCreation(event) {
-  event.preventDefault(); // Prevent form submission
-
-  // Get form input values
-  const eventName = document.getElementById("eventName").value;
-  const eventCategory = document.getElementById("eventCategory").value;
-  const eventDescription = document.getElementById("eventDescription").value;
-
-  // Validate form inputs
-  if (eventName.trim() === "") {
-    alert("Please enter an event name");
-    return;
-  }
-
-  if (eventCategory === "") {
-    alert("Please select an event category");
-    return;
-  }
-
-  if (eventDescription.trim() === "") {
-    alert("Please enter an event description");
-    return;
-  }
-
-  // Prepare data for POST request
-  const formData = {
-    eventName: eventName,
-    eventCategory: eventCategory,
-    eventDescription: eventDescription,
-  };
-
-  // Send POST request to API for event creation
-  fetch("http://localhost/api.php?action=createEvent", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Display success message or error message from API response
-      alert(data.message);
-      // Reset form fields if event creation is successful
-      if (data.message === "Event created successfully") {
-        document.getElementById("eventCreationForm").reset();
-      }
-    })
-    .catch((error) => {
-      console.error("Error creating event:", error);
-      alert(
-        "An error occurred while creating the event. Please try again later."
-      );
-    });
-}
-
 // Function to fetch and display events
 function fetchEvents() {
   // Fetch events from API
@@ -176,12 +171,6 @@ function fetchEvents() {
       console.error("Error fetching events:", error);
       alert("An error occurred while fetching events. Please try again later.");
     });
-}
-
-// For the event creation page
-const eventCreationForm = document.getElementById("eventCreationForm");
-if (eventCreationForm) {
-  eventCreationForm.addEventListener("submit", handleEventCreation);
 }
 
 // Fetch and display events on page load

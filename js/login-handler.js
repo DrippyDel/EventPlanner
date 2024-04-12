@@ -102,6 +102,7 @@ function handleRegistration(event) {
       .then((data) => {
         // Reset form fields if registration is successful
         if (data.error === "") {
+          localStorage.setItem("user", JSON.stringify(data));
           // Redirect user to event_listing.html after successful login
           window.location.href = "event_listing.html";
           // Optionally, you can also reset the form fields here
@@ -196,6 +197,7 @@ function handleLogin(event) {
     .then((data) => {
       // Reset form fields if login is successful
       if (data.error === "") {
+        localStorage.setItem("user", JSON.stringify(data));
         // Redirect user to event_listing.html after successful login
         window.location.href = "event_listing.html";
         // Optionally, you can also reset the form fields here
