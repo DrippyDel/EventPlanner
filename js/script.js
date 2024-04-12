@@ -188,9 +188,9 @@ document
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          alert("Failed to create event: " + data.error);
+          alert("Failed to create RSO: " + data.error);
         } else {
-          alert("Event created successfully");
+          alert("RSO created successfully");
         }
       })
       .catch((error) => {
