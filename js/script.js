@@ -352,67 +352,57 @@ function fetchEvents() {
         const eventCard = document.createElement("div");
         eventCard.classList.add("event-card");
 
-        const eventName = document.createElement("h3");
-        eventName.classList.add("event-name");
-        eventName.textContent = event.Event_name;
-        eventCard.appendChild(eventName);
+        // Populate event card with event data
+        const eventProperties = [
+          { label: "Event Name", value: event.Event_name },
+          { label: "Location", value: event.Location_Address },
+          { label: "Description", value: event.Description },
+          { label: "Type", value: event.EventType },
+          {
+            label: "Date & Time",
+            value: `${event.Event_Day} ${event.Event_Time}`,
+          },
+        ];
 
-        const eventLocation = document.createElement("p");
-        eventLocation.classList.add("event-location");
-        eventLocation.textContent = `Location: ${event.Location_Address}`;
-        eventCard.appendChild(eventLocation);
+        eventProperties.forEach((prop) => {
+          const p = document.createElement("p");
+          p.textContent = `${prop.label}: ${prop.value}`;
+          eventCard.appendChild(p);
+        });
 
-        const eventDescription = document.createElement("p");
-        eventDescription.classList.add("event-description");
-        eventDescription.textContent = `Description: ${event.Description}`;
-        eventCard.appendChild(eventDescription);
+        // Create comment section dropdown
+        const commentDropdown = document.createElement("div");
+        commentDropdown.classList.add("comment-section");
 
-        const eventType = document.createElement("p");
-        eventType.classList.add("event-type");
-        eventType.textContent = `Type: ${event.EventType}`;
-        eventCard.appendChild(eventType);
-
-        const eventDateTime = document.createElement("p");
-        eventDateTime.classList.add("event-date-time");
-        eventDateTime.textContent = `Date & Time: ${event.Event_Day} ${event.Event_Time}`;
-        eventCard.appendChild(eventDateTime);
-
-        // Create comment section
-        const commentSection = document.createElement("div");
-        commentSection.classList.add("comment-section");
-        commentSection.style.display = "none"; // Hide comment section initially
-
-        const commentTitle = document.createElement("h4");
-        commentTitle.textContent = "Comments";
-        commentSection.appendChild(commentTitle);
+        const commentToggleBtn = document.createElement("button");
+        commentToggleBtn.textContent = "Toggle Comments";
 
         const commentList = document.createElement("ul");
         commentList.classList.add("comment-list");
-        commentSection.appendChild(commentList);
 
         const commentInput = document.createElement("textarea");
         commentInput.classList.add("comment-input");
         commentInput.placeholder = "Add a comment";
-        commentSection.appendChild(commentInput);
 
         const commentSubmitBtn = document.createElement("button");
         commentSubmitBtn.classList.add("comment-submit");
         commentSubmitBtn.textContent = "Submit";
 
-        // Toggle comment section visibility on button click
-        commentSubmitBtn.addEventListener("click", () => {
-          if (commentSection.style.display === "none") {
-            commentSection.style.display = "block";
-          } else {
-            commentSection.style.display = "none";
-          }
+        commentToggleBtn.addEventListener("click", () => {
+          commentList.style.display =
+            commentList.style.display === "none" ? "block" : "none";
+          commentInput.style.display =
+            commentInput.style.display === "none" ? "block" : "none";
+          commentSubmitBtn.style.display =
+            commentSubmitBtn.style.display === "none" ? "block" : "none";
         });
 
-        commentSection.appendChild(commentSubmitBtn);
+        commentDropdown.appendChild(commentToggleBtn);
+        commentDropdown.appendChild(commentList);
+        commentDropdown.appendChild(commentInput);
+        commentDropdown.appendChild(commentSubmitBtn);
 
-        eventCard.appendChild(commentSection);
-
-        // Append event card to event list
+        eventCard.appendChild(commentDropdown);
         eventList.appendChild(eventCard);
       });
     })

@@ -365,3 +365,7 @@ button[type="submit"]:hover {
 .event-card .comment-submit:hover {
   background-color: #0056b3;
 }
+
+.comment-section {
+  display: none; /* Hide the comment section initially */
+}
