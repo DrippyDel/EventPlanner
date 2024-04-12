@@ -371,8 +371,8 @@ function fetchEvents() {
         });
 
         // Create comment section dropdown
-        const commentDropdown = document.createElement("div");
-        commentDropdown.classList.add("comment-section");
+        const commentSection = document.createElement("div");
+        commentSection.classList.add("comment-section");
 
         const commentToggleBtn = document.createElement("button");
         commentToggleBtn.textContent = "Toggle Comments";
@@ -389,6 +389,7 @@ function fetchEvents() {
         commentSubmitBtn.textContent = "Submit";
 
         commentToggleBtn.addEventListener("click", () => {
+          // Toggle comment section visibility
           commentList.style.display =
             commentList.style.display === "none" ? "block" : "none";
           commentInput.style.display =
@@ -397,13 +398,13 @@ function fetchEvents() {
             commentSubmitBtn.style.display === "none" ? "block" : "none";
         });
 
-        commentDropdown.appendChild(commentToggleBtn);
-        commentDropdown.appendChild(commentList);
-        commentDropdown.appendChild(commentInput);
-        commentDropdown.appendChild(commentSubmitBtn);
+        commentSection.appendChild(commentToggleBtn);
+        commentSection.appendChild(commentList);
+        commentSection.appendChild(commentInput);
+        commentSection.appendChild(commentSubmitBtn);
 
-        eventCard.appendChild(commentDropdown);
-        eventList.appendChild(eventCard);
+        eventCard.appendChild(commentSection); // Append comment section to event card
+        eventList.appendChild(eventCard); // Append event card to event list
       });
     })
     .catch((error) => {
