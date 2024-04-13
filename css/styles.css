@@ -374,27 +374,36 @@ button[type="submit"]:hover {
   color: black; /* Adjust the color as needed */
 }
 
+.event-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-properties {
+  flex: 1;
+}
+
 .comment-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Align items to the right */
+  align-items: flex-end;
 }
 
 .comment-toggle-btn {
-  margin-right: 10px; /* Add margin to the right of the toggle button */
+  margin-right: 10px;
 }
 
 .comment-list {
-  display: none; /* Hide the comment list by default */
-  margin-top: 10px; /* Add margin for spacing */
-  text-align: right; /* Align text to the right */
+  display: none;
+  margin-top: 10px;
+  text-align: right;
 }
 
 .comment-input {
-  width: 100%; /* Make the comment input full width */
-  margin-top: 10px; /* Add margin for spacing */
+  width: calc(100% - 20px);
+  margin: 10px;
 }
 
 .comment-submit {
-  margin-top: 10px; /* Add margin for spacing */
+  margin: 10px;
 }

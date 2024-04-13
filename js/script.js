@@ -394,11 +394,19 @@ function fetchEvents() {
           },
         ];
 
+        // Create event properties container
+        const eventPropertiesContainer = document.createElement("div");
+        eventPropertiesContainer.classList.add("event-properties");
+
+        // Populate event properties container with event data
         eventProperties.forEach((prop) => {
           const p = document.createElement("p");
           p.textContent = `${prop.label}: ${prop.value}`;
-          eventCard.appendChild(p);
+          eventPropertiesContainer.appendChild(p);
         });
+
+        // Append event properties container to the event card
+        eventCard.appendChild(eventPropertiesContainer);
 
         // Create comment section dropdown
         const commentSection = document.createElement("div");
