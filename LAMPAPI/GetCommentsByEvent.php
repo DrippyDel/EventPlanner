@@ -25,7 +25,7 @@
 
             if ($result->num_rows > 0) {
                 $comments = array();
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch_object()) {
                     $comments[] = $row;
                 }
                 sendResultInfoAsJson(json_encode($comments));
