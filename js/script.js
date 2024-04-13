@@ -540,7 +540,10 @@ function fetchEvents() {
     },
     body: JSON.stringify({ username: username }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Inside response in fetchEvents()");
+      return response.json();
+    })
     .then((data) => {
       console.log("Event data:");
       console.log(data);
