@@ -230,6 +230,34 @@ Create Comment:
 	Error (Status Code: 400):
 	JSON object with an error field describing the encountered error(s).
 
+Get Comments By Event:
+	Registration Endpoint
+	Endpoint: POST http://104.131.71.40/LAMPAPI/GetCommentsByEvent.php
+	Description: Get all Comments for an event by event ID
+	Request Payload:
+	JSON object with the following fields:
+		{	   
+		    "username": "Drippy",
+		    "eventID": 
+		}
+	Example:
+		{	   
+		    "username": "Drippy",
+		    "eventID": 1
+		}
+	Response:
+		Success (Status Code: 200):
+		{
+		        "Comment_ID": 2,
+		        "Text": "This is the updated comment text.",
+		        "Rating": 4,
+		        "Timestamp": "2024-04-13 00:17:00",
+		        "Username": "Ricky",
+		        "Events_ID": 1
+		 }
+	Error (Status Code: 400):
+		JSON object with an error field describing the encountered error(s).
+
 Edit Comment:
 	Registration Endpoint
 	Endpoint: POST http://104.131.71.40/LAMPAPI/EditComment.php
