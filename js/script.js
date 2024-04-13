@@ -421,6 +421,21 @@ function fetchEvents() {
         const commentList = document.createElement("ul");
         commentList.classList.add("comment-list");
 
+        // Fetch comments for this event
+        fetchComments(eventId)
+          .then((comments) => {
+            // Display comments
+            comments.forEach((comment) => {
+              const commentItem = document.createElement("li");
+              commentItem.textContent = comment.text;
+              commentList.appendChild(commentItem);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+            // Handle error if needed
+          });
+
         const commentInput = document.createElement("textarea");
         commentInput.classList.add("comment-input");
         commentInput.placeholder = "Add a comment";
@@ -470,6 +485,24 @@ function fetchEvents() {
     .catch((error) => {
       console.error("Error fetching events:", error);
       alert("An error occurred while fetching events. Please try again later.");
+    });
+}
+
+// Function to fetch comments for a specific event
+function fetchComments(eventId) {
+  return fetch(
+    `http://104.131.71.40/LAMPAPI/GetCommentsByEvent.php?eventId=${eventId}`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => data)
+    .catch((error) => {
+      console.error("Error fetching comments:", error);
+      throw error;
     });
 }
 
