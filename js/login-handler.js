@@ -103,7 +103,10 @@ function handleRegistration(event) {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Inside response");
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       // Reset form fields if registration is successful
