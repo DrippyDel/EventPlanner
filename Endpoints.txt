@@ -33,6 +33,7 @@ Create User:
 	}
 	Response:
 		Success (Status Code: 200):
+		"message": "New Record was created",
 		"user": {
 			        "UID": 43,
 			        "Username": "Opshorts",
