@@ -426,7 +426,21 @@ button[type="submit"]:hover {
 
 .comment-username {
   font-weight: bold;
-  position: relative;
+  position: absolute; /* Position at the top left corner */
   top: 0;
   left: 0;
+  margin: 0;
+}
+
+.comment-details {
+  margin-left: 20px; /* Adjust margin to accommodate username */
+}
+
+.comment-text {
+  margin: 5px 0;
+}
+
+.comment-timestamp {
+  font-size: 0.8rem;
+  color: #777;
 }
