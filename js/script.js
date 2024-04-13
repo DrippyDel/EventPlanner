@@ -317,59 +317,41 @@ document
     modal.style.display = "none";
   });
 
-// Function to handle comment submission
-function submitComment(eventId, username, text) {
+// Function to fetch comments for a specific event
+function fetchComments(eventId) {
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const username = userData ? userData.Username : "";
+
   // Prepare the request payload
   const payload = {
     username: username,
-    text: text,
-    rating: null, // You may add rating functionality if needed
-    eventsID: eventId,
+    eventID: eventId,
   };
 
-  // Make a POST request to the Create Comment endpoint
-  fetch("http://104.131.71.40/LAMPAPI/CreateComment.php", {
+  return fetch("http://104.131.71.40/LAMPAPI/GetCommentsByEvent.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle successful comment submission
-      alert("Comment submitted successfully");
-
-      // Update the UI to reflect the new comment
-      const commentList = document.querySelector(
-        `#event-${eventId} .comment-list`
-      );
-      const newComment = document.createElement("li");
-      newComment.textContent = text;
-      commentList.appendChild(newComment);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
     })
+    .then((data) => data)
     .catch((error) => {
-      // Handle error
-      console.error("Error submitting comment:", error);
-      // Display an error message to the user if needed
+      console.error("Error fetching comments:", error);
+      throw error;
     });
 }
 
-// Function to fetch and display events
+// Function to display events and their comments
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
-  console.log("userData:", userData);
-  let username;
-
-  // Check if user data exists
-  if (userData) {
-    // Access the username property
-    username = userData.Username;
-    console.log("Username:", username);
-  } else {
-    console.log("User data not found in local storage");
-    return; // Exit function if user data is not available
-  }
+  const username = userData ? userData.Username : "";
 
   // Fetch events from API
   fetch("http://104.131.71.40/LAMPAPI/GetEventsByUser.php", {
@@ -422,12 +404,32 @@ function fetchEvents() {
         commentList.classList.add("comment-list");
 
         // Fetch comments for this event
-        fetchComments(eventId)
+        fetchComments(eventId, username)
           .then((comments) => {
             // Display comments
             comments.forEach((comment) => {
               const commentItem = document.createElement("li");
-              commentItem.textContent = comment.text;
+              commentItem.textContent = comment.Text;
+
+              // Add edit and delete buttons for each comment
+              const editButton = document.createElement("button");
+              editButton.textContent = "Edit";
+              editButton.addEventListener("click", () => {
+                // Handle edit functionality
+                // You can open a modal or do inline editing here
+                alert("Edit functionality will be implemented soon.");
+              });
+
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.addEventListener("click", () => {
+                // Handle delete functionality
+                // You can confirm deletion and then make a delete request
+                alert("Delete functionality will be implemented soon.");
+              });
+
+              commentItem.appendChild(editButton);
+              commentItem.appendChild(deleteButton);
               commentList.appendChild(commentItem);
             });
           })
@@ -489,10 +491,19 @@ function fetchEvents() {
 }
 
 // Function to fetch comments for a specific event
-function fetchComments(eventId) {
-  return fetch(
-    `http://104.131.71.40/LAMPAPI/GetCommentsByEvent.php?eventId=${eventId}`
-  )
+function fetchComments(eventId, username) {
+  const formData = {
+    username: username,
+    eventID: eventId,
+  };
+
+  return fetch(`http://104.131.71.40/LAMPAPI/GetCommentsByEvent.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
