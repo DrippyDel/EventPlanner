@@ -317,6 +317,44 @@ document
     modal.style.display = "none";
   });
 
+// Function to handle comment submission
+function submitComment(eventId, username, text) {
+  // Prepare the request payload
+  const payload = {
+    username: username,
+    text: text,
+    rating: null, // You may add rating functionality if needed
+    eventsID: eventId,
+  };
+
+  // Make a POST request to the Create Comment endpoint
+  fetch("http://104.131.71.40/LAMPAPI/CreateComment.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle successful comment submission
+      console.log("Comment submitted successfully:", data);
+
+      // Update the UI to reflect the new comment
+      const commentList = document.querySelector(
+        `#event-${eventId} .comment-list`
+      );
+      const newComment = document.createElement("li");
+      newComment.textContent = text;
+      commentList.appendChild(newComment);
+    })
+    .catch((error) => {
+      // Handle error
+      console.error("Error submitting comment:", error);
+      // Display an error message to the user if needed
+    });
+}
+
 // Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -333,163 +371,106 @@ function fetchEvents() {
     return; // Exit function if user data is not available
   }
 
-  // Function to handle comment submission
-  function submitComment(eventId, username, text) {
-    // Prepare the request payload
-    const payload = {
-      username: username,
-      text: text,
-      rating: null, // You may add rating functionality if needed
-      eventsID: eventId,
-    };
+  // Fetch events from API
+  fetch("http://104.131.71.40/LAMPAPI/GetEventsByUser.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username: username }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Display events on the webpage
+      const eventList = document.getElementById("eventList");
+      eventList.innerHTML = ""; // Clear previous event list
 
-    // Make a POST request to the Create Comment endpoint
-    fetch("http://104.131.71.40/LAMPAPI/CreateComment.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle successful comment submission
-        alert("Comment submitted successfully");
+      data.forEach((event) => {
+        const eventId = event.Events_ID;
 
-        // Update the UI to reflect the new comment
-        const commentList = document.querySelector(
-          `#event-${eventId} .comment-list`
-        );
-        const newComment = document.createElement("li");
-        newComment.textContent = text;
-        commentList.appendChild(newComment);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error submitting comment:", error);
-        // Display an error message to the user if needed
-      });
-  }
+        // Create event card
+        const eventCard = document.createElement("div");
+        eventCard.classList.add("event-card");
 
-  // Function to fetch and display events
-  function fetchEvents() {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    console.log("userData:", userData);
-    let username;
+        // Populate event card with event data
+        const eventProperties = [
+          { label: "Event Name", value: event.Event_name },
+          { label: "Location Name", value: event.Location },
+          { label: "Address", value: event.Location_Address },
+          { label: "Description", value: event.Description },
+          { label: "Type", value: event.EventType },
+          {
+            label: "Date & Time",
+            value: `${event.Event_Day} ${event.Event_Time}`,
+          },
+        ];
 
-    // Check if user data exists
-    if (userData) {
-      // Access the username property
-      username = userData.Username;
-      console.log("Username:", username);
-    } else {
-      console.log("User data not found in local storage");
-      return; // Exit function if user data is not available
-    }
-
-    // Fetch events from API
-    fetch("http://104.131.71.40/LAMPAPI/GetEventsByUser.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: username }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Display events on the webpage
-        const eventList = document.getElementById("eventList");
-        eventList.innerHTML = ""; // Clear previous event list
-
-        data.forEach((event) => {
-          const eventId = event.Events_ID;
-
-          // Create event card
-          const eventCard = document.createElement("div");
-          eventCard.classList.add("event-card");
-
-          // Populate event card with event data
-          const eventProperties = [
-            { label: "Event Name", value: event.Event_name },
-            { label: "Location Name", value: event.Location },
-            { label: "Address", value: event.Location_Address },
-            { label: "Description", value: event.Description },
-            { label: "Type", value: event.EventType },
-            {
-              label: "Date & Time",
-              value: `${event.Event_Day} ${event.Event_Time}`,
-            },
-          ];
-
-          eventProperties.forEach((prop) => {
-            const p = document.createElement("p");
-            p.textContent = `${prop.label}: ${prop.value}`;
-            eventCard.appendChild(p);
-          });
-
-          // Create comment section dropdown
-          const commentSection = document.createElement("div");
-          commentSection.classList.add("comment-section");
-
-          const commentToggleBtn = document.createElement("button");
-          commentToggleBtn.textContent = "Toggle Comments";
-
-          const commentList = document.createElement("ul");
-          commentList.classList.add("comment-list");
-
-          const commentInput = document.createElement("textarea");
-          commentInput.classList.add("comment-input");
-          commentInput.placeholder = "Add a comment";
-
-          const commentSubmitBtn = document.createElement("button");
-          commentSubmitBtn.classList.add("comment-submit");
-          commentSubmitBtn.textContent = "Submit";
-
-          // Event listener for comment submission
-          commentSubmitBtn.addEventListener("click", () => {
-            const commentText = commentInput.value.trim();
-            if (commentText !== "") {
-              // Call the submitComment function
-              submitComment(eventId, username, commentText);
-              // Clear the comment input field after submission
-              commentInput.value = "";
-            } else {
-              // Display an error message if the comment text is empty
-              alert("Please enter a comment before submitting.");
-            }
-          });
-
-          // Toggle button event listener
-          commentToggleBtn.addEventListener("click", () => {
-            // Toggle comment section visibility
-            commentList.style.display =
-              commentList.style.display === "none" ? "block" : "none";
-            commentInput.style.display =
-              commentInput.style.display === "none" ? "block" : "none";
-            commentSubmitBtn.style.display =
-              commentSubmitBtn.style.display === "none" ? "block" : "none";
-          });
-
-          // Append elements to the comment section
-          commentSection.appendChild(commentToggleBtn);
-          commentSection.appendChild(commentList);
-          commentSection.appendChild(commentInput);
-          commentSection.appendChild(commentSubmitBtn);
-
-          // Append the comment section to the event card
-          eventCard.appendChild(commentSection);
-
-          // Append the event card to the event list
-          eventList.appendChild(eventCard);
+        eventProperties.forEach((prop) => {
+          const p = document.createElement("p");
+          p.textContent = `${prop.label}: ${prop.value}`;
+          eventCard.appendChild(p);
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-        alert(
-          "An error occurred while fetching events. Please try again later."
-        );
+
+        // Create comment section dropdown
+        const commentSection = document.createElement("div");
+        commentSection.classList.add("comment-section");
+
+        const commentToggleBtn = document.createElement("button");
+        commentToggleBtn.textContent = "Toggle Comments";
+
+        const commentList = document.createElement("ul");
+        commentList.classList.add("comment-list");
+
+        const commentInput = document.createElement("textarea");
+        commentInput.classList.add("comment-input");
+        commentInput.placeholder = "Add a comment";
+
+        const commentSubmitBtn = document.createElement("button");
+        commentSubmitBtn.classList.add("comment-submit");
+        commentSubmitBtn.textContent = "Submit";
+
+        // Event listener for comment submission
+        commentSubmitBtn.addEventListener("click", () => {
+          const commentText = commentInput.value.trim();
+          if (commentText !== "") {
+            // Call the submitComment function
+            submitComment(eventId, username, commentText);
+            // Clear the comment input field after submission
+            commentInput.value = "";
+          } else {
+            // Display an error message if the comment text is empty
+            alert("Please enter a comment before submitting.");
+          }
+        });
+
+        // Toggle button event listener
+        commentToggleBtn.addEventListener("click", () => {
+          // Toggle comment section visibility
+          commentList.style.display =
+            commentList.style.display === "none" ? "block" : "none";
+          commentInput.style.display =
+            commentInput.style.display === "none" ? "block" : "none";
+          commentSubmitBtn.style.display =
+            commentSubmitBtn.style.display === "none" ? "block" : "none";
+        });
+
+        // Append elements to the comment section
+        commentSection.appendChild(commentToggleBtn);
+        commentSection.appendChild(commentList);
+        commentSection.appendChild(commentInput);
+        commentSection.appendChild(commentSubmitBtn);
+
+        // Append the comment section to the event card
+        eventCard.appendChild(commentSection);
+
+        // Append the event card to the event list
+        eventList.appendChild(eventCard);
       });
-  }
+    })
+    .catch((error) => {
+      console.error("Error fetching events:", error);
+      alert("An error occurred while fetching events. Please try again later.");
+    });
 }
 
 // Fetch and display events on page load
