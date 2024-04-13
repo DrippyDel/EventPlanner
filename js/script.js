@@ -516,8 +516,8 @@ async function fetchComments(eventId) {
     }
 
     const data = await response.json();
-    console.log(typeof data);
-    return data;
+    console.log(typeof Array.isArray(data) ? data : []);
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching comments:", error);
     throw error;
