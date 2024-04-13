@@ -12,6 +12,8 @@ function handleEventCreation(event) {
   const eventAddress = document.getElementById("eventAddress").value;
   const eventPermission = document.getElementById("eventPermission").value;
 
+  console("eventType: " + eventType);
+
   // Validate form inputs
   if (eventName.trim() === "") {
     alert("Please enter an event name");
