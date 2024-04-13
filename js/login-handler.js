@@ -81,6 +81,7 @@ function handleRegistration(event) {
   // Check if all fields are valid
   if (document.querySelectorAll(".initial-error").length === 0) {
     // All fields are valid, proceed with registration
+    console.log(`after document.querySelectorAll(".initial-error")`);
     // Prepare data for POST request
     const formData = {
       FirstName: firstName,
