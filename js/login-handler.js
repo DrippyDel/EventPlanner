@@ -78,44 +78,41 @@ function handleRegistration(event) {
     passwordError.classList.add("valid");
   }
 
-  // Check if all fields are valid
-  if (document.querySelectorAll(".initial-error").length === 0) {
-    // All fields are valid, proceed with registration
-    console.log(`after document.querySelectorAll(".initial-error")`);
-    // Prepare data for POST request
-    const formData = {
-      FirstName: firstName,
-      LastName: lastName,
-      Username: username,
-      Email: email,
-      Password: password,
-    };
+  // All fields are valid, proceed with registration
+  console.log(`after document.querySelectorAll(".initial-error")`);
+  // Prepare data for POST request
+  const formData = {
+    FirstName: firstName,
+    LastName: lastName,
+    Username: username,
+    Email: email,
+    Password: password,
+  };
 
-    // Send POST request to API for user registration
-    fetch("http://104.131.71.40/LAMPAPI/CreateUser.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+  // Send POST request to API for user registration
+  fetch("http://104.131.71.40/LAMPAPI/CreateUser.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("data: " + data);
+      // Reset form fields if registration is successful
+      if (data.error === "") {
+        localStorage.setItem("user", JSON.stringify(data));
+        // Redirect user to event_listing.html after successful login
+        window.location.href = "event_listing.html";
+        // Optionally, you can also reset the form fields here
+        document.getElementById("registerForm").reset();
+      }
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data: " + data);
-        // Reset form fields if registration is successful
-        if (data.error === "") {
-          localStorage.setItem("user", JSON.stringify(data));
-          // Redirect user to event_listing.html after successful login
-          window.location.href = "event_listing.html";
-          // Optionally, you can also reset the form fields here
-          document.getElementById("registerForm").reset();
-        }
-      })
-      .catch((error) => {
-        console.error("Error registering user:", error);
-        alert("An error occurred while registering. Please try again later.");
-      });
-  }
+    .catch((error) => {
+      console.error("Error registering user:", error);
+      alert("An error occurred while registering. Please try again later.");
+    });
 }
 
 // Add event listeners for live validation
@@ -213,7 +210,7 @@ function handleLogin(event) {
 }
 
 // Add event listeners to form submissions
-const eventRegistrationForm = document.getElementById("registrationForm");
+const eventRegistrationForm = document.getElementById("registerForm");
 if (eventRegistrationForm) {
   eventRegistrationForm.addEventListener("submit", handleRegistration);
 }
