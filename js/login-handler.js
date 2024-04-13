@@ -55,7 +55,8 @@ function handleRegistration(event) {
     usernameError.textContent =
       "❌ Username must be at least 5 characters long";
   } else {
-    usernameError.textContent = "✅ Username is valid";
+    usernameError.textContent =
+      "✅ Username must be at least 5 characters long";
     usernameError.classList.add("valid");
   }
 
@@ -64,7 +65,7 @@ function handleRegistration(event) {
   if (!validateEmail(email)) {
     emailError.textContent = "❌ Please enter a valid email address";
   } else {
-    emailError.textContent = "✅ Email is valid";
+    emailError.textContent = "✅ Please enter a valid email address";
     emailError.classList.add("valid");
   }
 
@@ -74,7 +75,8 @@ function handleRegistration(event) {
     passwordError.textContent =
       "❌ Password must be at least 8 characters long and contain at least 1 special character";
   } else {
-    passwordError.textContent = "✅ Password is valid";
+    passwordError.textContent =
+      "✅ Password must be at least 8 characters long and contain at least 1 special character";
     passwordError.classList.add("valid");
   }
 
@@ -99,7 +101,7 @@ function handleRegistration(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("data: " + data);
+      console.log("data: ", data);
       // Reset form fields if registration is successful
       if (data.error === "") {
         localStorage.setItem("user", JSON.stringify(data));
