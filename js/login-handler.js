@@ -100,6 +100,7 @@ function handleRegistration(event) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("data: " + data);
         // Reset form fields if registration is successful
         if (data.error === "") {
           localStorage.setItem("user", JSON.stringify(data));
