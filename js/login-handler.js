@@ -197,7 +197,7 @@ function handleLogin(event) {
     .then((data) => {
       console.log(data);
       // Reset form fields if login is successful
-      if (data.error === "") {
+      if (data.message === "New Record was created") {
         console.log(`Inside: if (data.error === "")`);
         localStorage.setItem("user", JSON.stringify(data));
         // Redirect user to event_listing.html after successful login
