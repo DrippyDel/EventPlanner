@@ -111,10 +111,15 @@ function handleRegistration(event) {
       console.log(data);
       // Reset form fields if registration is successful
       if (data.message === "New Record was created") {
-        localStorage.setItem("user", JSON.stringify(data));
+        // localStorage.setItem("user", JSON.stringify(data));
         console.log(`inside if (data.message === "New Record was created")`);
-        // Redirect user to event_listing.html after successful login
-        window.location.href = "event_listing.html";
+        // Toggle forms to show login form
+        document.getElementById("loginForm").classList.remove("hidden");
+        document.getElementById("registerForm").classList.add("hidden");
+        // Update link text
+        document.querySelector("#toggleForm a").textContent = "Login";
+        // Update heading text
+        document.querySelector("#formContainer h2").textContent = "Login";
         // Optionally, you can also reset the form fields here
         document.getElementById("registerForm").reset();
       }
