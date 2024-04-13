@@ -149,6 +149,36 @@ Get Events By User
 	Error (Status Code: 400):
 		JSON object with an error field describing the encountered error(s).
 
+Search Event
+	Registration Endpoint
+	Endpoint: POST http://104.131.71.40/LAMPAPI/SearchEvents.php
+	Description: Returns all the events 
+	Request Payload:
+		JSON object with the following fields:
+		{
+		    "username": "",
+		    "search": ""
+		}
+		Example:
+		{
+		    "username": "Ricky",
+		    "search": "Sample"
+		}
+	Response:
+		Success (Status Code: 200):
+			** All events would display since Ricky is a Admin"
+			{
+			        "Events_ID": 1,
+			        "Location_Address": null,
+			        "Event_name": "Sample Event",
+			        "Description": "This is a sample event description",
+			        "EventType": "Public",
+			        "Event_Day": null,
+			        "Event_Time": null,
+			        "Location": null
+  			  }
+	Error (Status Code: 400):
+		JSON object with an error field describing the encountered error(s).
 
 			
 RSO
