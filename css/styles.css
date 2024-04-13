@@ -426,6 +426,7 @@ button[type="submit"]:hover {
 
 .comment-username {
   font-weight: bold;
+  position: relative;
   top: 0;
   left: 0;
 }
