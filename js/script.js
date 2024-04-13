@@ -542,6 +542,8 @@ function fetchEvents() {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log("Event data:");
+      console.log(data);
       // Display events on the webpage
       const eventList = document.getElementById("eventList");
       eventList.innerHTML = ""; // Clear previous event list
@@ -716,18 +718,7 @@ function fetchEvents() {
     })
     .catch((error) => {
       console.error("Error fetching events:", error);
-      if (
-        error ===
-        "SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 54 of the JSON data script.js:718:15"
-      ) {
-        alert(
-          "If you're new, please enter the school your currently attending, then refresh the page. Thanks"
-        );
-      } else {
-        alert(
-          "An error occurred while fetching events. Please try again later."
-        );
-      }
+      alert("An error occurred while fetching events. Please try again later.");
     });
 }
 
