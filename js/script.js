@@ -390,7 +390,9 @@ function fetchEvents() {
           { label: "Type", value: event.EventType },
           {
             label: "Date & Time",
-            value: `${event.Event_Day} ${event.Event_Time}`,
+            value: `${formatDate(event.Event_Day)}, ${formatTime(
+              event.Event_Time
+            )}`,
           },
         ];
 
@@ -544,6 +546,86 @@ function fetchEvents() {
       console.error("Error fetching events:", error);
       alert("An error occurred while fetching events. Please try again later.");
     });
+}
+
+// // Function to format timestamp
+// function getFormattedTimestamp(timestamp) {
+//   const date = new Date(timestamp);
+//   const days = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+//   const day = days[date.getDay()];
+//   const month = months[date.getMonth()];
+//   const year = date.getFullYear();
+//   const hours = date.getHours();
+//   const minutes = date.getMinutes();
+//   const period = hours < 12 ? "am" : "pm";
+//   const formattedHours = hours % 12 || 12;
+//   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+//   return `${day}, ${month} ${date.getDate()}, ${year} ${formattedHours}:${formattedMinutes} ${period}`;
+// }
+
+// Function to format date
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const day = days[date.getDay()];
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${day}, ${month} ${date.getDate()}, ${year}`;
+}
+
+// Function to format time
+function formatTime(timeString) {
+  const time = new Date(`1970-01-01T${timeString}`);
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  const period = hours < 12 ? "am" : "pm";
+  const formattedHours = hours % 12 || 12;
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  return `${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 // Function to format timestamp into a more readable format
