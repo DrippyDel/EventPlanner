@@ -230,6 +230,33 @@ Create Comment:
 	Error (Status Code: 400):
 	JSON object with an error field describing the encountered error(s).
 
+Edit Comment:
+	Registration Endpoint
+	Endpoint: POST http://104.131.71.40/LAMPAPI/EditComment.php
+	Description: Edit Comment by ID.
+	Request Payload:
+	JSON object with the following fields:
+	{
+	    "username": "",
+	    "commentID": ,
+	    "updatedText": "",
+	    "updatedRating": 
+	}
+	Example:
+	{
+	    "username": "Ricky",
+	    "commentID": 2,
+	    "updatedText": "This is the updated comment text.",
+	    "updatedRating": 4
+	}
+	Response:
+		Success (Status Code: 200):
+		{
+	   		 "message": "Comment with ID 2 was updated"
+		}
+	Error (Status Code: 400):
+		JSON object with an error field describing the encountered error(s).
+
 Delete Comment:
 	Registration Endpoint
 	Endpoint: POST http://104.131.71.40/LAMPAPI/DeleteComment.php
