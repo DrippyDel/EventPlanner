@@ -71,12 +71,12 @@ function handleRegistration(event) {
 
   // Live validation for password
   const passwordError = document.getElementById("passwordError");
-  if (password.length < 8 || !/\W/.test(password)) {
+  if (password.length < 4) {
     passwordError.textContent =
-      "❌ Password must be at least 8 characters long and contain at least 1 special character";
+      "❌ Password must be at least 4 characters long";
   } else {
     passwordError.textContent =
-      "✅ Password must be at least 8 characters long and contain at least 1 special character";
+      "✅ Password must be at least 4 characters long";
     passwordError.classList.add("valid");
   }
 
@@ -151,13 +151,13 @@ document.getElementById("newEmail").addEventListener("input", function () {
 document.getElementById("newPassword").addEventListener("input", function () {
   const password = document.getElementById("newPassword").value;
   const passwordError = document.getElementById("passwordError");
-  if (password.length < 8 || !/\W/.test(password)) {
+  if (password.length < 4) {
     passwordError.textContent =
-      "❌ Password must be at least 8 characters long and contain at least 1 special character";
+      "❌ Password must be at least 4 characters long";
     passwordError.classList.remove("valid");
   } else {
     passwordError.textContent =
-      "✅ Password must be at least 8 characters long and contain at least 1 special character";
+      "✅ Password must be at least 4 characters long";
     passwordError.classList.add("valid");
   }
 });
