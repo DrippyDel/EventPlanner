@@ -51,12 +51,12 @@ function handleRegistration(event) {
 
   // Live validation for username
   const usernameError = document.getElementById("usernameError");
-  if (username.length < 5) {
+  if (username.length < 4) {
     usernameError.textContent =
-      "❌ Username must be at least 5 characters long";
+      "❌ Username must be at least 4 characters long";
   } else {
     usernameError.textContent =
-      "✅ Username must be at least 5 characters long";
+      "✅ Username must be at least 4 characters long";
     usernameError.classList.add("valid");
   }
 
@@ -71,12 +71,12 @@ function handleRegistration(event) {
 
   // Live validation for password
   const passwordError = document.getElementById("passwordError");
-  if (password.length < 5) {
+  if (password.length < 4) {
     passwordError.textContent =
-      "❌ Password must be at least 5 characters long";
+      "❌ Password must be at least 4 characters long";
   } else {
     passwordError.textContent =
-      "✅ Password must be at least 5 characters long";
+      "✅ Password must be at least 4 characters long";
     passwordError.classList.add("valid");
   }
 
@@ -126,13 +126,13 @@ function handleRegistration(event) {
 document.getElementById("newUsername").addEventListener("input", function () {
   const username = document.getElementById("newUsername").value;
   const usernameError = document.getElementById("usernameError");
-  if (username.length < 5) {
+  if (username.length < 4) {
     usernameError.textContent =
-      "❌ Username must be at least 5 characters long";
+      "❌ Username must be at least 4 characters long";
     usernameError.classList.remove("valid");
   } else {
     usernameError.textContent =
-      "✅ Username must be at least 5 characters long";
+      "✅ Username must be at least 4 characters long";
     usernameError.classList.add("valid");
   }
 });
