@@ -71,12 +71,12 @@ function handleRegistration(event) {
 
   // Live validation for password
   const passwordError = document.getElementById("passwordError");
-  if (password.length < 4) {
+  if (password.length < 5) {
     passwordError.textContent =
-      "❌ Password must be at least 4 characters long";
+      "❌ Password must be at least 5 characters long";
   } else {
     passwordError.textContent =
-      "✅ Password must be at least 4 characters long";
+      "✅ Password must be at least 5 characters long";
     passwordError.classList.add("valid");
   }
 
@@ -109,6 +109,7 @@ function handleRegistration(event) {
       // Reset form fields if registration is successful
       if (data.error === "") {
         localStorage.setItem("user", JSON.stringify(data));
+        console.log(`inside data.error === ""`);
         // Redirect user to event_listing.html after successful login
         window.location.href = "event_listing.html";
         // Optionally, you can also reset the form fields here
