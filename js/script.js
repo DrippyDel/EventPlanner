@@ -355,8 +355,6 @@ function submitComment(eventId, username, text) {
     });
 }
 
-// Function to fetch and display events
-// Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
   const username = userData ? userData.Username : "";
@@ -437,17 +435,22 @@ function fetchEvents() {
               const commentDetails = document.createElement("div");
               commentDetails.classList.add("comment-details");
 
+              const commentUsername = document.createElement("p");
+              commentUsername.classList.add("comment-username");
+              commentUsername.textContent = comment.Username;
+              commentDetails.appendChild(commentUsername);
+
               const commentText = document.createElement("p");
+              commentText.classList.add("comment-text");
               commentText.textContent = comment.Text;
               commentDetails.appendChild(commentText);
 
               const commentTimestamp = document.createElement("p");
-              commentTimestamp.textContent = `Timestamp: ${comment.Timestamp}`;
+              commentTimestamp.classList.add("comment-timestamp");
+              commentTimestamp.textContent = getFormattedTimestamp(
+                comment.Timestamp
+              );
               commentDetails.appendChild(commentTimestamp);
-
-              const commentUsername = document.createElement("p");
-              commentUsername.textContent = `Username: ${comment.Username}`;
-              commentDetails.appendChild(commentUsername);
 
               commentCard.appendChild(commentDetails);
 
@@ -541,6 +544,27 @@ function fetchEvents() {
       console.error("Error fetching events:", error);
       alert("An error occurred while fetching events. Please try again later.");
     });
+}
+
+// Function to format timestamp into a more readable format
+function getFormattedTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const dayOfWeek = days[date.getDay()];
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "pm" : "am";
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+  return `${dayOfWeek} ${formattedHours}:${formattedMinutes} ${ampm}`;
 }
 
 // Function to fetch comments for a specific event
