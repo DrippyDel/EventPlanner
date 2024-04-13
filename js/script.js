@@ -355,7 +355,6 @@ function submitComment(eventId, username, text) {
     });
 }
 
-// Function to display events and their comments
 // Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -406,7 +405,9 @@ function fetchEvents() {
         commentSection.classList.add("comment-section");
 
         const commentToggleBtn = document.createElement("button");
-        commentToggleBtn.textContent = "Toggle Comments";
+        commentToggleBtn.innerHTML =
+          "<img src='../pic/icons8-dropdown-arrow-50.png' alt='Toggle Comments'>";
+        commentToggleBtn.style.backgroundColor = "transparent";
 
         const commentList = document.createElement("ul");
         commentList.classList.add("comment-list");
@@ -421,7 +422,9 @@ function fetchEvents() {
 
               // Add edit and delete buttons for each comment
               const editButton = document.createElement("button");
-              editButton.textContent = "Edit";
+              editButton.innerHTML =
+                "<img src='../pic/icons8-edit-24.png' alt='Edit'>";
+              editButton.style.backgroundColor = "transparent";
               editButton.addEventListener("click", () => {
                 // Handle edit functionality
                 const updatedText = prompt("Enter the updated comment:");
@@ -434,7 +437,9 @@ function fetchEvents() {
               });
 
               const deleteButton = document.createElement("button");
-              deleteButton.textContent = "Delete";
+              deleteButton.innerHTML =
+                "<img src='../pic/icons8-delete-24.png' alt='Delete'>";
+              deleteButton.style.backgroundColor = "transparent";
               deleteButton.addEventListener("click", () => {
                 // Handle delete functionality
                 if (confirm("Are you sure you want to delete this comment?")) {
