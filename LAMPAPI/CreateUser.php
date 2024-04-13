@@ -31,7 +31,18 @@
         // Execute the prepared statement
         if ($stmt->execute())
         {
-            echo json_encode(["message" => "New Record was created"]);
+            // Fetch the newly created user's data
+            $newUserID = $stmt->insert_id;
+            $newUser = getUserInfo($conn, $newUserID);
+            
+            // Construct response JSON object with user data and message
+            $response = [
+                "message" => "New Record was created",
+                "user" => $newUser
+            ];
+            
+            // Send response as JSON
+            sendResultInfoAsJson(json_encode($response));
         }
         else
         {
@@ -40,6 +51,23 @@
 
         $stmt->close();
         $conn->close();
+    }
+
+    function getUserInfo($conn, $userID)
+    {
+        // Fetch user's information based on user ID
+        $stmt = $conn->prepare("SELECT * FROM Users WHERE UID = ?");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        // Fetch the first (and only) row from the result set
+        $user = $result->fetch_assoc();
+        
+        // Close statement
+        $stmt->close();
+        
+        return $user;
     }
 
     function getRequestInfo()
