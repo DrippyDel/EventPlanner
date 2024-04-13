@@ -433,9 +433,23 @@ function fetchEvents() {
               commentCard.classList.add("comment-card");
               commentCard.style.backgroundColor = "#f5edfd"; // Light purple background
 
-              // Create a paragraph to display the comment text
+              // Display comment details
+              const commentDetails = document.createElement("div");
+              commentDetails.classList.add("comment-details");
+
               const commentText = document.createElement("p");
               commentText.textContent = comment.Text;
+              commentDetails.appendChild(commentText);
+
+              const commentTimestamp = document.createElement("p");
+              commentTimestamp.textContent = `Timestamp: ${comment.Timestamp}`;
+              commentDetails.appendChild(commentTimestamp);
+
+              const commentUsername = document.createElement("p");
+              commentUsername.textContent = `Username: ${comment.Username}`;
+              commentDetails.appendChild(commentUsername);
+
+              commentCard.appendChild(commentDetails);
 
               // Add edit and delete buttons for each comment
               const editButton = document.createElement("button");
@@ -465,8 +479,6 @@ function fetchEvents() {
                 }
               });
 
-              // Append elements to the comment card
-              commentCard.appendChild(commentText);
               commentCard.appendChild(editButton);
               commentCard.appendChild(deleteButton);
 
