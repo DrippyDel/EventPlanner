@@ -373,3 +373,14 @@ button[type="submit"]:hover {
 .comment-toggle-btn span {
   color: black; /* Adjust the color as needed */
 }
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align items to the right */
+}
+
+.comment-list {
+  display: none; /* Hide the comment list by default */
+  margin-top: 10px; /* Add margin for spacing */
+}
