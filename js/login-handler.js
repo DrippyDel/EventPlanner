@@ -89,7 +89,11 @@ function handleRegistration(event) {
     Username: username,
     Email: email,
     Password: password,
+    University: "",
+    Privileges: "",
   };
+
+  console.log(formData);
 
   // Send POST request to API for user registration
   fetch("http://104.131.71.40/LAMPAPI/CreateUser.php", {
@@ -101,7 +105,7 @@ function handleRegistration(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("data: ", data);
+      console.log(`data: ${data}`);
       // Reset form fields if registration is successful
       if (data.error === "") {
         localStorage.setItem("user", JSON.stringify(data));
