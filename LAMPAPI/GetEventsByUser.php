@@ -30,6 +30,12 @@
                 case "Student":
                     $events = getUserEvents($conn, $userID, $userRSO_ID);
                     break;
+                case " ":
+                    $events = getUserEvents($conn, $userID, $userRSO_ID);
+                    break;
+                case "":
+                    $events = getUserEvents($conn, $userID, $userRSO_ID);
+                    break;
                 default:
                     returnWithError("User does not have sufficient privileges.");
             }
