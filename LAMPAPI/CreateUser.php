@@ -35,14 +35,16 @@
             $newUserID = $stmt->insert_id;
             $newUser = getUserInfo($conn, $newUserID);
             
-            // Construct response JSON object with user data and message
+            // Construct response JSON object
             $response = [
-                "message" => "New Record was created",
-                "user" => $newUser
+                "message" => "New Record was created"
             ];
             
-            // Send response as JSON
+            // Send message
             sendResultInfoAsJson(json_encode($response));
+            
+            // Send user data separately
+            sendResultInfoAsJson(json_encode($newUser));
         }
         else
         {
