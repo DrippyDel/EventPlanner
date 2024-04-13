@@ -478,11 +478,9 @@ document
         }
       })
       .catch((error) => {
-        console.error("Error creating RSO:", error);
+        console.error("Error adding school:", error);
         // Handle errors if the request fails
-        alert(
-          "An error occurred while creating the RSO. Please try again later."
-        );
+        alert("An error occurred while adding school. Please try again later.");
       });
 
     // Close the modal after form submission
