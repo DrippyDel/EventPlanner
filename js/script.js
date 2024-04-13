@@ -356,6 +356,7 @@ function submitComment(eventId, username, text) {
 }
 
 // Function to display events and their comments
+// Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
   const username = userData ? userData.Username : "";
@@ -423,16 +424,23 @@ function fetchEvents() {
               editButton.textContent = "Edit";
               editButton.addEventListener("click", () => {
                 // Handle edit functionality
-                // You can open a modal or do inline editing here
-                alert("Edit functionality will be implemented soon.");
+                const updatedText = prompt("Enter the updated comment:");
+                if (updatedText !== null && updatedText.trim() !== "") {
+                  const commentID = comment.Comment_ID;
+                  editComment(username, commentID, updatedText);
+                } else {
+                  alert("Please enter a valid comment.");
+                }
               });
 
               const deleteButton = document.createElement("button");
               deleteButton.textContent = "Delete";
               deleteButton.addEventListener("click", () => {
                 // Handle delete functionality
-                // You can confirm deletion and then make a delete request
-                alert("Delete functionality will be implemented soon.");
+                if (confirm("Are you sure you want to delete this comment?")) {
+                  const commentID = comment.Comment_ID;
+                  deleteComment(username, commentID);
+                }
               });
 
               commentItem.appendChild(editButton);
@@ -521,6 +529,68 @@ async function fetchComments(eventId) {
     console.error("Error fetching comments:", error);
     throw error;
   }
+}
+
+// Function to edit a comment
+function editComment(username, commentID, updatedText) {
+  const payload = {
+    username: username,
+    commentID: commentID,
+    updatedText: updatedText,
+    updatedRating: null, // You may include rating if needed
+  };
+
+  fetch("http://104.131.71.40/LAMPAPI/EditComment.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert(data.message); // Display success message
+      // You can update the UI to reflect the edited comment if needed
+    })
+    .catch((error) => {
+      console.error("Error editing comment:", error);
+      alert("An error occurred while editing the comment.");
+    });
+}
+
+// Function to delete a comment
+function deleteComment(username, commentID) {
+  const payload = {
+    username: username,
+    commentID: commentID,
+  };
+
+  fetch("http://104.131.71.40/LAMPAPI/DeleteComment.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert(data.message); // Display success message
+      // You can update the UI to remove the deleted comment if needed
+    })
+    .catch((error) => {
+      console.error("Error deleting comment:", error);
+      alert("An error occurred while deleting the comment.");
+    });
 }
 
 // Fetch and display events on page load
