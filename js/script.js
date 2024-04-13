@@ -338,7 +338,7 @@ function submitComment(eventId, username, text) {
     .then((response) => response.json())
     .then((data) => {
       // Handle successful comment submission
-      console.log("Comment submitted successfully:", data);
+      alert("Comment submitted successfully");
 
       // Update the UI to reflect the new comment
       const commentList = document.querySelector(
