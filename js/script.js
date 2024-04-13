@@ -411,7 +411,7 @@ function fetchEvents() {
         commentList.classList.add("comment-list");
 
         // Fetch comments for this event
-        fetchComments(eventId, username)
+        fetchComments(eventId)
           .then((comments) => {
             // Display comments
             comments.forEach((comment) => {
@@ -516,7 +516,7 @@ async function fetchComments(eventId) {
     }
 
     const data = await response.json();
-    return data;
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching comments:", error);
     throw error;
