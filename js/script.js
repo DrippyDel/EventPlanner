@@ -425,7 +425,7 @@ function fetchEvents() {
               // Add edit and delete buttons for each comment
               const editButton = document.createElement("button");
               editButton.innerHTML =
-                "<img src='../pic/icons8-edit-24.png' alt='Edit' style='width: 10px; height: 16px;'>";
+                "<img src='../pic/icons8-edit-24.png' alt='Edit' style='width: 13px; height: 16px;'>";
               editButton.style.backgroundColor = "transparent";
               editButton.addEventListener("click", () => {
                 // Handle edit functionality
