@@ -369,3 +369,7 @@ button[type="submit"]:hover {
 .comment-section {
   display: block;
 }
+
+.comment-toggle-btn span {
+  color: black; /* Adjust the color as needed */
+}
