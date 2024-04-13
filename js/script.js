@@ -406,7 +406,7 @@ function fetchEvents() {
 
         const commentToggleBtn = document.createElement("button");
         commentToggleBtn.innerHTML =
-          "<img src='../pic/icons8-dropdown-arrow-50.png' alt='Toggle Comments'>";
+          "<img src='../pic/icons8-dropdown-arrow-50.png' alt='Toggle Comments' style='width: 16px; height: 16px;'><span style='margin-left: 5px;'>Comments</span>";
         commentToggleBtn.style.backgroundColor = "transparent";
 
         const commentList = document.createElement("ul");
@@ -423,7 +423,7 @@ function fetchEvents() {
               // Add edit and delete buttons for each comment
               const editButton = document.createElement("button");
               editButton.innerHTML =
-                "<img src='../pic/icons8-edit-24.png' alt='Edit'>";
+                "<img src='../pic/icons8-edit-24.png' alt='Edit' style='width: 16px; height: 16px;'>";
               editButton.style.backgroundColor = "transparent";
               editButton.addEventListener("click", () => {
                 // Handle edit functionality
@@ -438,7 +438,7 @@ function fetchEvents() {
 
               const deleteButton = document.createElement("button");
               deleteButton.innerHTML =
-                "<img src='../pic/icons8-delete-24.png' alt='Delete'>";
+                "<img src='../pic/icons8-delete-24.png' alt='Delete' style='width: 16px; height: 16px;'>";
               deleteButton.style.backgroundColor = "transparent";
               deleteButton.addEventListener("click", () => {
                 // Handle delete functionality
