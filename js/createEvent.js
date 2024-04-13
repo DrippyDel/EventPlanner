@@ -12,7 +12,14 @@ function handleEventCreation(event) {
   const eventAddress = document.getElementById("eventAddress").value;
   const eventPermission = document.getElementById("eventPermission").value;
 
+  console("eventName: " + eventName);
   console("eventType: " + eventType);
+  console("eventDate: " + eventDate);
+  console("eventTime: " + eventTime);
+  console("eventDescription: " + eventDescription);
+  console("eventLocationName: " + eventLocationName);
+  console("eventAddress: " + eventAddress);
+  console("eventPermission: " + eventPermission);
 
   // Validate form inputs
   if (eventName.trim() === "") {
