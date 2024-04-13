@@ -407,3 +407,19 @@ button[type="submit"]:hover {
 .comment-submit {
   margin: 10px;
 }
+
+.comment-card {
+  background-color: #f5edfd; /* Light purple background */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.comment-card p {
+  margin-bottom: 5px;
+}
+
+.comment-card button {
+  margin-right: 5px;
+  cursor: pointer;
+}

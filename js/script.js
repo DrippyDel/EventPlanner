@@ -356,6 +356,7 @@ function submitComment(eventId, username, text) {
 }
 
 // Function to fetch and display events
+// Function to fetch and display events
 function fetchEvents() {
   const userData = JSON.parse(localStorage.getItem("user"));
   const username = userData ? userData.Username : "";
@@ -427,8 +428,14 @@ function fetchEvents() {
           .then((comments) => {
             // Display comments
             comments.forEach((comment) => {
-              const commentItem = document.createElement("li");
-              commentItem.textContent = comment.Text;
+              // Create a comment card
+              const commentCard = document.createElement("div");
+              commentCard.classList.add("comment-card");
+              commentCard.style.backgroundColor = "#f5edfd"; // Light purple background
+
+              // Create a paragraph to display the comment text
+              const commentText = document.createElement("p");
+              commentText.textContent = comment.Text;
 
               // Add edit and delete buttons for each comment
               const editButton = document.createElement("button");
@@ -458,9 +465,13 @@ function fetchEvents() {
                 }
               });
 
-              commentItem.appendChild(editButton);
-              commentItem.appendChild(deleteButton);
-              commentList.appendChild(commentItem);
+              // Append elements to the comment card
+              commentCard.appendChild(commentText);
+              commentCard.appendChild(editButton);
+              commentCard.appendChild(deleteButton);
+
+              // Append the comment card to the comment list
+              commentList.appendChild(commentCard);
             });
           })
           .catch((error) => {
