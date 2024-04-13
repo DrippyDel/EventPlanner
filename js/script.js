@@ -407,7 +407,7 @@ function fetchEvents() {
         const commentToggleBtn = document.createElement("button");
         commentToggleBtn.innerHTML =
           "<img src='../pic/icons8-dropdown-arrow-50.png' alt='Toggle Comments' style='width: 16px; height: 16px;'><span style='margin-left: 5px;'>Comments</span>";
-        commentToggleBtn.style.backgroundColor = "transparent";
+        commentToggleBtn.style.backgroundColor = "white";
         commentToggleBtn.classList.add("comment-toggle-btn");
 
         const commentList = document.createElement("ul");
