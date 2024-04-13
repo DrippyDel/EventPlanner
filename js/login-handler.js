@@ -107,9 +107,9 @@ function handleRegistration(event) {
     .then((data) => {
       console.log(data);
       // Reset form fields if registration is successful
-      if (data.error === "") {
+      if (data.message === "New Record was created") {
         localStorage.setItem("user", JSON.stringify(data));
-        console.log(`inside data.error === ""`);
+        console.log(`inside if (data.message === "New Record was created")`);
         // Redirect user to event_listing.html after successful login
         window.location.href = "event_listing.html";
         // Optionally, you can also reset the form fields here
@@ -197,7 +197,8 @@ function handleLogin(event) {
     .then((data) => {
       console.log(data);
       // Reset form fields if login is successful
-      if (data.message === "New Record was created") {
+      message: "New Record was created";
+      if (data.error === "") {
         console.log(`Inside: if (data.error === "")`);
         localStorage.setItem("user", JSON.stringify(data));
         // Redirect user to event_listing.html after successful login
