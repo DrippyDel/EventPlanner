@@ -105,7 +105,7 @@ function handleRegistration(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(`data: ${data}`);
+      console.log(data);
       // Reset form fields if registration is successful
       if (data.error === "") {
         localStorage.setItem("user", JSON.stringify(data));
@@ -174,22 +174,13 @@ function handleLogin(event) {
   console.log("username: " + username);
   console.log("password: " + password);
 
-  // Validate form inputs
-  if (username.trim() === "") {
-    alert("Please enter a username");
-    return;
-  }
-
-  if (password.trim() === "") {
-    alert("Please enter a password");
-    return;
-  }
-
   // Prepare data for POST request
   const formData = {
     Username: username,
     Password: password,
   };
+
+  console.log(formData);
 
   // Send POST request to API for user login
   fetch("http://104.131.71.40/LAMPAPI/Login.php", {
@@ -199,10 +190,15 @@ function handleLogin(event) {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Inside the response");
+      return response.json();
+    })
     .then((data) => {
+      console.log(data);
       // Reset form fields if login is successful
       if (data.error === "") {
+        console.log(`Inside: if (data.error === "")`);
         localStorage.setItem("user", JSON.stringify(data));
         // Redirect user to event_listing.html after successful login
         window.location.href = "event_listing.html";
