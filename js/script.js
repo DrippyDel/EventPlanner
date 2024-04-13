@@ -461,6 +461,8 @@ document
       latitude: schoolLongitude,
     };
 
+    console.log(formData);
+
     // Make a POST request to the endpoint
     fetch("http://104.131.71.40/LAMPAPI/", {
       method: "POST",
