@@ -23,21 +23,33 @@ Create User:
 	}
 	Example:
 	{
-	  "Username": "JuiceBox",
-	  "Password": "999",
-	  "Email": "999wrld@example.com",
-	  "FirstName": "Jared",
-	  "LastName": "Wiggins",
-	  "University": "University of Central Florida",
-	  "Privileges": "Student"
+	  "Username": "Opshorts",
+	  "Password": "COP4",
+	  "Email": "Opshorts@gmail.com",
+	  "FirstName": "Del",
+	  "LastName": "Kin",
+	  "University": "",
+	  "Privileges": ""
 	}
 	Response:
-	Success (Status Code: 200):
-	"New Record Created"
+		Success (Status Code: 200):
+		"user": {
+			        "UID": 43,
+			        "Username": "Opshorts",
+			        "Password": "COP4",
+			        "Email": "Opshorts@gmail.com",
+			        "FirstName": "Del",
+			        "LastName": "Kin",
+			        "University": "",
+			        "CreatedAt": "2024-04-13 11:35:14",
+			        "Privileges": "",
+			        "RSO_ID": 0
+    			}	
 	Error (Status Code: 400):
-	JSON object with an error field describing the encountered error(s).
-           **Note RSO_ID is auto populated to 0 when User is created. 
-               If Privileges are " " (Empty String) good to assume that they are a regular user.
+		JSON object with an error field describing the encountered error(s).
+
+        **Note RSO_ID is auto populated to 0 when User is created. 
+        If Privileges are " " (Empty String) good to assume that they are a regular user.
 
 Login:
 	Endpoint: POST http://104.131.71.40/LAMPAPI/Login.php
