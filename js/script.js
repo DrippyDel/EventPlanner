@@ -720,9 +720,15 @@ const logoutButton = document.getElementById("logoutButton");
 
 // Add click event listener to the logout button
 logoutButton.addEventListener("click", () => {
-  // Remove the user from local storage
-  localStorage.removeItem("user");
+  // Ask the user for confirmation
+  const confirmLogout = confirm("Are you sure you want to log out?");
 
-  // Redirect to index.html
-  window.location.href = "index.html";
+  // If the user confirms, proceed with logout
+  if (confirmLogout) {
+    // Remove the user from local storage
+    localStorage.removeItem("user");
+
+    // Redirect to index.html
+    window.location.href = "index.html";
+  }
 });
