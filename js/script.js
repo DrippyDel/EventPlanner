@@ -714,3 +714,15 @@ document.querySelectorAll(".toggle-btn").forEach((button) => {
 document.getElementById("addButton").addEventListener("click", function () {
   window.location.href = "create_event.html";
 });
+
+// Get the logout button element
+const logoutButton = document.getElementById("logoutButton");
+
+// Add click event listener to the logout button
+logoutButton.addEventListener("click", () => {
+  // Remove the user from local storage
+  localStorage.removeItem("user");
+
+  // Redirect to index.html
+  window.location.href = "index.html";
+});
