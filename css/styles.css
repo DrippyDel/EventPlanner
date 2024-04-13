@@ -426,14 +426,6 @@ button[type="submit"]:hover {
 
 .comment-username {
   font-weight: bold;
-  position: absolute; /* Position at the top left corner */
-  top: 0;
-  left: 0;
-  margin: 0;
-}
-
-.comment-details {
-  margin-left: 20px; /* Adjust margin to accommodate username */
 }
 
 .comment-text {
