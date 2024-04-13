@@ -721,7 +721,9 @@ function fetchEvents() {
     })
     .catch((error) => {
       console.error("Error fetching events:", error);
-      alert("An error occurred while fetching events. Please try again later.");
+      alert(
+        "An error occurred while fetching events. If you're new please add the school you're attending and refresh the page."
+      );
     });
 }
 
