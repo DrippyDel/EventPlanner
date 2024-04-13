@@ -100,6 +100,228 @@ window.onclick = function (event) {
   }
 };
 
+// Get the search input element
+const searchInput = document.getElementById("searchInput");
+
+// Add event listener for the "keyup" event on the search input
+searchInput.addEventListener("keyup", function (event) {
+  // Get the search query entered by the user
+  const searchQuery = event.target.value.trim();
+
+  // Retrieve user data from local storage
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const username = userData ? userData.Username : "";
+
+  // Prepare the request payload
+  const payload = {
+    username: username,
+    search: searchQuery,
+  };
+
+  // Make a POST request to the SearchEvents endpoint
+  fetch("http://104.131.71.40/LAMPAPI/SearchEvents.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the search results
+      displaySearchResults(data);
+    })
+    .catch((error) => {
+      console.error("Error searching events:", error);
+      // Handle error if the request fails
+      alert(
+        "An error occurred while searching events. Please try again later."
+      );
+    });
+});
+
+// Function to display search results on the webpage
+function displaySearchResults(results) {
+  const eventList = document.getElementById("eventList");
+  eventList.innerHTML = ""; // Clear previous event list
+
+  if (results && results.length > 0) {
+    results.forEach((event) => {
+      // Create event card
+      const eventCard = document.createElement("div");
+      eventCard.classList.add("event-card");
+
+      // Populate event card with event data
+      const eventProperties = [
+        { label: "Event Name", value: event.Event_name },
+        { label: "Location Name", value: event.Location },
+        { label: "Address", value: event.Location_Address },
+        { label: "Description", value: event.Description },
+        { label: "Type", value: event.EventType },
+        {
+          label: "Date & Time",
+          value: `${formatDate(event.Event_Day)}, ${formatTime(
+            event.Event_Time
+          )}`,
+        },
+      ];
+
+      // Create event properties container
+      const eventPropertiesContainer = document.createElement("div");
+      eventPropertiesContainer.classList.add("event-properties");
+
+      // Populate event properties container with event data
+      eventProperties.forEach((prop) => {
+        const p = document.createElement("p");
+        p.textContent = `${prop.label}: ${prop.value}`;
+        eventPropertiesContainer.appendChild(p);
+      });
+
+      // Append event properties container to the event card
+      eventCard.appendChild(eventPropertiesContainer);
+
+      // Create comment section dropdown
+      const commentSection = document.createElement("div");
+      commentSection.classList.add("comment-section");
+
+      const commentToggleBtn = document.createElement("button");
+      commentToggleBtn.innerHTML =
+        "<img src='../pic/icons8-dropdown-arrow-50.png' alt='Toggle Comments' style='width: 16px; height: 16px;'><span style='margin-left: 5px;'>Comments</span>";
+      commentToggleBtn.style.backgroundColor = "white";
+      commentToggleBtn.style.color = "black";
+      commentToggleBtn.classList.add("comment-toggle-btn");
+
+      const commentList = document.createElement("ul");
+      commentList.classList.add("comment-list");
+
+      // Fetch comments for this event
+      fetchComments(event.Events_ID)
+        .then((comments) => {
+          // Display comments
+          comments.forEach((comment) => {
+            // Create a comment card
+            const commentCard = document.createElement("div");
+            commentCard.classList.add("comment-card");
+
+            // Display comment details
+            const commentDetails = document.createElement("div");
+            commentDetails.classList.add("comment-details");
+
+            const commentUsername = document.createElement("p");
+            commentUsername.classList.add("comment-username");
+            commentUsername.textContent = comment.Username;
+            commentDetails.appendChild(commentUsername);
+
+            const commentText = document.createElement("p");
+            commentText.classList.add("comment-text");
+            commentText.textContent = comment.Text;
+            commentDetails.appendChild(commentText);
+
+            const commentTimestamp = document.createElement("p");
+            commentTimestamp.classList.add("comment-timestamp");
+            commentTimestamp.textContent = getFormattedTimestamp(
+              comment.Timestamp
+            );
+            commentDetails.appendChild(commentTimestamp);
+
+            commentCard.appendChild(commentDetails);
+
+            // Add edit and delete buttons for each comment
+            const editButton = document.createElement("button");
+            editButton.innerHTML =
+              "<img src='../pic/icons8-edit-24.png' alt='Edit' style='width: 13px; height: 16px;'>";
+            editButton.style.backgroundColor = "transparent";
+            editButton.addEventListener("click", () => {
+              // Handle edit functionality
+              const updatedText = prompt("Enter the updated comment:");
+              if (updatedText !== null && updatedText.trim() !== "") {
+                const commentID = comment.Comment_ID;
+                editComment(userData.Username, commentID, updatedText);
+              } else {
+                alert("Please enter a valid comment.");
+              }
+            });
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerHTML =
+              "<img src='../pic/icons8-delete-24.png' alt='Delete' style='width: 16px; height: 16px;'>";
+            deleteButton.style.backgroundColor = "transparent";
+            deleteButton.addEventListener("click", () => {
+              // Handle delete functionality
+              if (confirm("Are you sure you want to delete this comment?")) {
+                const commentID = comment.Comment_ID;
+                deleteComment(userData.Username, commentID);
+              }
+            });
+
+            commentCard.appendChild(editButton);
+            commentCard.appendChild(deleteButton);
+
+            // Append the comment card to the comment list
+            commentList.appendChild(commentCard);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+          // Handle error if needed
+        });
+
+      const commentInput = document.createElement("textarea");
+      commentInput.classList.add("comment-input");
+      commentInput.placeholder = "Add a comment";
+
+      const commentSubmitBtn = document.createElement("button");
+      commentSubmitBtn.classList.add("comment-submit");
+      commentSubmitBtn.textContent = "Submit";
+
+      // Event listener for comment submission
+      commentSubmitBtn.addEventListener("click", () => {
+        const commentText = commentInput.value.trim();
+        if (commentText !== "") {
+          // Call the submitComment function
+          submitComment(event.Events_ID, userData.Username, commentText);
+          // Clear the comment input field after submission
+          commentInput.value = "";
+        } else {
+          // Display an error message if the comment text is empty
+          alert("Please enter a comment before submitting.");
+        }
+      });
+
+      // Toggle button event listener
+      commentToggleBtn.addEventListener("click", () => {
+        // Toggle comment section visibility
+        commentList.style.display =
+          commentList.style.display === "none" ? "block" : "none";
+        commentInput.style.display =
+          commentInput.style.display === "none" ? "block" : "none";
+        commentSubmitBtn.style.display =
+          commentSubmitBtn.style.display === "none" ? "block" : "none";
+      });
+
+      // Append elements to the comment section
+      commentSection.appendChild(commentToggleBtn);
+      commentSection.appendChild(commentList);
+      commentSection.appendChild(commentInput);
+      commentSection.appendChild(commentSubmitBtn);
+
+      // Append the comment section to the event card
+      eventCard.appendChild(commentSection);
+
+      // Append the event card to the event list
+      eventList.appendChild(eventCard);
+    });
+  } else {
+    // Display a message if no events were found
+    eventList.innerHTML = "<p>No events found.</p>";
+  }
+}
+
 // createRSOForm submission handling
 document
   .getElementById("createRSOForm")
