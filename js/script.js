@@ -419,10 +419,10 @@ document
         }
       })
       .catch((error) => {
-        console.error("Error creating RSO:", error);
+        console.error("Error joining RSO:", error);
         // Handle errors if the request fails
         alert(
-          "An error occurred while creating the RSO. Please try again later."
+          "An error occurred while joining the RSO. Please try again later."
         );
       });
 
