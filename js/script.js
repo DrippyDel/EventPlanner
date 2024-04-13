@@ -464,7 +464,7 @@ document
     console.log(formData);
 
     // Make a POST request to the endpoint
-    fetch("http://104.131.71.40/LAMPAPI/", {
+    fetch("http://104.131.71.40/LAMPAPI/AddSchool.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
