@@ -122,16 +122,19 @@ Create Event:
 	    "locationAddress": "123 Example St, City, State, ZIP"
 	}
 	Response:
-	Success (Status Code: 200):
-	"New Event Record was created",
-	"id": 2
-	Error (Privilages is not Admin):
-	"User does not have sufficient privileges to create an event."
-	Error (Wrong SuperAdmin Id):
-	"error": "Incorrect SuperAdmin ID."
-	Error (Status Code: 400):
-	JSON object with an error field describing the encountered error(s).
-           **Note As long as you pass in the Username of the user that is logged in the api would check the privilages for you.
+		Success (Status Code: 200):
+			"New Event Record was created",
+			"id": 2
+		Error (Privilages is not Admin):
+			"User does not have sufficient privileges to create an event."
+		Error (Wrong SuperAdmin Id):
+			error": "Incorrect SuperAdmin ID."
+		Error(Same time and location for Event):
+			"error": "An event already exists at the same location and time."
+		Error (Status Code: 400):
+			JSON object with an error field describing the encountered error(s).
+
+        **Note As long as you pass in the Username of the user that is logged in the api would check the privilages for you.
 		  Creating Event would also populate corresponding Event tables in the database.
 
 Get Events By User
