@@ -764,36 +764,48 @@ function fetchEvents() {
 //   return `${day}, ${month} ${date.getDate()}, ${year} ${formattedHours}:${formattedMinutes} ${period}`;
 // }
 
-// Function to format date
+// // Function to format date
+// function formatDate(dateString) {
+//   const date = new Date(dateString);
+//   const days = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+//   const day = days[date.getDay()];
+//   const month = months[date.getMonth()];
+//   const year = date.getFullYear();
+//   return `${day}, ${month} ${date.getDate()}, ${year}`;
+// }
+
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const day = days[date.getDay()];
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-  return `${day}, ${month} ${date.getDate()}, ${year}`;
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  };
+  return date.toLocaleString("en-US", options);
 }
 
 // Function to format time
