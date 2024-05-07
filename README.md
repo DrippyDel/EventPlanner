@@ -10,8 +10,8 @@ With Liunx/ Windows as the OS,
 and PHP for API calls and most of the backend functionality. 
 
 
-Contributors to the projects (GitHub username):
+Contributors to the project (GitHub username):
 
-Bryan Aneyro Hernandez, GitHub: [Asere231](https://github.com/Asere231)
-Chris Parisapogu, GitHub: [ChrisParisapogu](https://github.com/ChrisParisapogu)
+Bryan Aneyro Hernandez, GitHub: [Asere231](https://github.com/Asere231),
+Chris Parisapogu, GitHub: [ChrisParisapogu](https://github.com/ChrisParisapogu),
 Delali Ekpeh, GitHub: [DrippyDel](https://github.com/DrippyDel)
